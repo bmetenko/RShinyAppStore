@@ -2,6 +2,9 @@ library(shiny)
 library(shinydashboard)
 library(tidyverse)
 library(cowplot)
+library(scales)
+
+source("package_check.R")
 # library(plotly)
 
 # TODO: try catch on data load. CSV output.
@@ -30,15 +33,15 @@ server <- function(input, output, session) {
     
     if (input$naOmit == TRUE) {
       j <- dim(CatTally)[1]
-      CatTally <- CatTally[-((input$catNum):24), ]
-      CatTally <- CatTally[order(CatTally$n, decreasing = T), ]
+      CatTally <- CatTally[-((input$catNum):24),]
+      CatTally <- CatTally[order(CatTally$n, decreasing = T),]
       CatTally$prime_genre <-
         factor(x = CatTally$prime_genre,
                levels = CatTally$prime_genre)
       
     } else {
-      CatTally <- CatTally[c(1:input$catNum, 24), ]
-      CatTally <- CatTally[order(CatTally$n, decreasing = T), ]
+      CatTally <- CatTally[c(1:input$catNum, 24),]
+      CatTally <- CatTally[order(CatTally$n, decreasing = T),]
       CatTally$prime_genre <-
         factor(x = CatTally$prime_genre,
                levels = CatTally$prime_genre)
@@ -107,6 +110,48 @@ server <- function(input, output, session) {
   })
   
   output$table2 <- renderTable({
-    head(df, 5)
+    head(df[, 1:15], 25)
+  })
+  
+  output$CatPick <- renderUI({
+    d <- unique(df$prime_genre)
+    
+    selectInput(
+      inputId = "catChoice",
+      label = "Please Select Category",
+      choices = d,
+      selected = d[1],
+      width = "100%"
+    )
+  })
+  
+  output$plot3 <- renderPlot({
+    j <- input$catChoice
+    print(j)
+    
+    k <- df %>% filter(prime_genre == j) %>%
+      select(user_rating) %>% group_by(user_rating) %>% tally()
+    
+    g1 <-
+      ggplot(data = k, aes(
+        x = "",
+        y = n,
+        fill = as.factor(user_rating)
+      )) +
+      geom_bar(stat = "identity") + coord_polar("y", start = 0) +
+      scale_fill_brewer(palette = "Spectral") + ggtitle(j) + labs(fill = "Rating") +
+      blank_theme +
+      theme(axis.title.y = element_blank())
+    g1
+  })
+  
+  output$table3 <- renderTable({
+    j <- input$catChoice
+    k <- df %>% filter(prime_genre == j) %>%
+      select(user_rating) %>% group_by(user_rating) %>% tally()
+    
+    k$percent <-
+      (k$n / sum(k$n)) %>% round(., digits = 2) %>% percent()
+    k
   })
 }
