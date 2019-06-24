@@ -3,13 +3,9 @@ library(shinydashboard)
 library(tidyverse)
 library(cowplot)
 library(scales)
+library(forcats)
 
-source("package_check.R")
-# library(plotly)
-
-# TODO: try catch on data load. CSV output.
-
-
+# source("package_check.R")
 # devtools::install_github("ramamet/applestoreR")
 # df <- applestoreR::AppleStore
 # write.csv(df, file = "appleData.csv")
@@ -28,26 +24,33 @@ blank_theme <- theme_minimal() +
 
 server <- function(input, output, session) {
   dataParse <- reactive({
+    validate(need(input$naOmit != "", "Waiting for Data..."))
     ## Start Reactive wrap
     CatTally <- df %>% group_by(prime_genre) %>% tally()
     
     if (input$naOmit == TRUE) {
       j <- dim(CatTally)[1]
-      CatTally <- CatTally[-((input$catNum):24),]
-      CatTally <- CatTally[order(CatTally$n, decreasing = T),]
+      CatTally <- CatTally[-((input$catNum):24), ]
+      CatTally <- CatTally[order(CatTally$n, decreasing = T), ]
       CatTally$prime_genre <-
         factor(x = CatTally$prime_genre,
                levels = CatTally$prime_genre)
       
     } else {
-      CatTally <- CatTally[c(1:input$catNum, 24),]
-      CatTally <- CatTally[order(CatTally$n, decreasing = T),]
+      CatTally <- CatTally[c(1:input$catNum, 24), ]
+      CatTally <- CatTally[order(CatTally$n, decreasing = T), ]
       CatTally$prime_genre <-
         factor(x = CatTally$prime_genre,
                levels = CatTally$prime_genre)
     }
     
-    CatTally
+    if (is.null(CatTally)) {
+      return()
+    } else {
+      CatTally
+      
+    }
+    
   })
   
   output$input1 <- renderUI({
@@ -69,7 +72,9 @@ server <- function(input, output, session) {
   
   
   output$plot1 <- renderPlot({
+    validate(need(length(dataParse()) != 0, "Loading..."))
     CatTally <- dataParse()
+    
     
     bp <- ggplot(CatTally, aes(
       x = "",
@@ -81,8 +86,12 @@ server <- function(input, output, session) {
                stat = "identity") +
       blank_theme +
       scale_fill_discrete(name = "App Genre")
-    # assign(x = "bp", value = bp, envir = .GlobalEnv)
+    
+    
+    
     bp + coord_polar("y", start = 0)
+    # assign(x = "bp", value = bp, envir = .GlobalEnv)
+    
   })
   
   output$plot2 <- renderPlot({
@@ -109,8 +118,8 @@ server <- function(input, output, session) {
     g
   })
   
-  output$table2 <- renderTable({
-    head(df[, 1:15], 25)
+  output$table2 <- renderDataTable({
+    head(df[, 1:15] %>% as.tibble(), 25)
   })
   
   output$CatPick <- renderUI({
@@ -126,6 +135,7 @@ server <- function(input, output, session) {
   })
   
   output$plot3 <- renderPlot({
+    validate(need(input$catChoice != "", "Loading..."))
     j <- input$catChoice
     print(j)
     
@@ -146,6 +156,7 @@ server <- function(input, output, session) {
   })
   
   output$table3 <- renderTable({
+    validate(need(input$catChoice != "", "Loading..."))
     j <- input$catChoice
     k <- df %>% filter(prime_genre == j) %>%
       select(user_rating) %>% group_by(user_rating) %>% tally()
@@ -153,5 +164,20 @@ server <- function(input, output, session) {
     k$percent <-
       (k$n / sum(k$n)) %>% round(., digits = 2) %>% percent()
     k
+  })
+  
+  output$plot4 <- renderPlot({
+    validate(need(input$catChoice != "", "Loading..."))
+    
+    j <- input$catChoice
+    k <- df %>% filter(prime_genre == j)
+    
+    k %>% mutate(rateSummary = fct_infreq(cont_rating)) %>%
+      ggplot(aes(fct_rev(cont_rating))) + geom_bar() + coord_flip()
+    
+    
+    k %>% count(cont_rating) %>% mutate(cont_rating = fct_reorder(cont_rating, n, sum)) %>% filter(cont_rating != "NA") %>%
+      ggplot(aes(cont_rating, n)) + geom_col(aes(fill = cont_rating)) + coord_flip()
+    
   })
 }

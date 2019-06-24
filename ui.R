@@ -83,19 +83,26 @@ ui <- dashboardPage(
           "https://www.kaggle.com/ramamet4/app-store-apple-data-set-10k-apps"
         ),
         h4(
-          "This data set contains more than 7000 Apple iOS mobile application details. /n
+          "This data set contains more than 7000 Apple iOS mobile application details.
           The data was extracted from the iTunes Search API at the Apple Inc website."
         )
       ),
-      tabItem(tabName = "CatPlots", fluidPage(box(
-        uiOutput("CatPick"),
-        box(tableOutput("table3"))
-      ), box(
-        plotOutput("plot3")
-      ))),
+      tabItem(tabName = "CatPlots", fluidPage(
+        box(
+          solidHeader = T,
+          title = "Categorical Analysis",
+          status = "info",
+          uiOutput("CatPick"),
+          tableOutput("table3"),
+          align = "center",
+          width = "100px"
+        ),
+        box(plotOutput("plot3")),
+        box(plotOutput("plot4"))
+      )),
       tabItem(tabName = "Table", h2(""), fluidPage(# box(tableOutput("table1"), width = "20%"),
         box(
-          tableOutput("table2"), width = "80%"
+          dataTableOutput("table2"), width = "80%"
         )))
     )
   ))
