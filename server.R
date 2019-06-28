@@ -5,6 +5,12 @@ library(cowplot)
 library(scales)
 library(forcats)
 
+# TODO: Add Download Buttons.
+# TODO: Travis CI.
+# TODO: Tab box convert.
+# TODO: Update person statement in UI.
+# TODO: Scatterplots and ggplotly output.
+
 # source("package_check.R")
 # devtools::install_github("ramamet/applestoreR")
 # df <- applestoreR::AppleStore
