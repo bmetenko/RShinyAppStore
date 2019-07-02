@@ -21,6 +21,7 @@ r_packages:
   - forcats
   - cowplot
   - tidyverse
+  - rsconnect
 
 script:
   - R -f deploy.R
