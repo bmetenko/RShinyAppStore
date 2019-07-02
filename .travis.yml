@@ -1,2 +1,5 @@
 language: r
 sudo: required
+
+install:
+  - R -e package_check.R
