@@ -1,5 +1,15 @@
 language: r
 sudo: required
 
-install:
-  - R -e "source(package_check.R)"
+r_packages:
+  - shiny
+  - ggplot2
+  - dplyr
+  - jpeg
+  - shinydashboard
+  - httr
+  - jsonlite
+  - scales
+  - forcats
+  - cowplot
+  - tidyverse
