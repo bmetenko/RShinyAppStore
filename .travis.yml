@@ -2,4 +2,4 @@ language: r
 sudo: required
 
 install:
-  - R -e package_check.R
+  - R -e "source(package_check.R)"
