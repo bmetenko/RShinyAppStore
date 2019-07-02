@@ -1,5 +1,13 @@
 language: r
+r: release
 sudo: required
+warnings_are_errors: false
+
+cache:
+  packages: true
+
+git: 
+  depth: false
 
 r_packages:
   - shiny
@@ -13,3 +21,6 @@ r_packages:
   - forcats
   - cowplot
   - tidyverse
+
+script:
+  - R -f deploy.R
