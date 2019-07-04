@@ -1,4 +1,8 @@
 # RShinyAppStore
+
+[![Build Status](https://travis-ci.org/bmetenko/RShinyAppStore.svg?branch=master)](https://travis-ci.org/bmetenko/RShinyAppStore)
+
+
 A simple shiny dashboard to quickly evaluate Apple App Store Data from 2017.
 It is available for view in its current (not fully complete form) at:
 > https://bmetenko.shinyapps.io/RShinyAppStore/
