@@ -5,13 +5,9 @@ library(cowplot)
 library(scales)
 library(forcats)
 
-# TODO: Add Download Buttons.
-# TODO: Travis CI.
-# TODO: Tab box convert.
-# TODO: Update person statement in UI.
-# TODO: Scatterplots and ggplotly output.
-
 # source("package_check.R")
+
+
 # devtools::install_github("ramamet/applestoreR")
 # df <- applestoreR::AppleStore
 # write.csv(df, file = "appleData.csv")
@@ -29,6 +25,7 @@ blank_theme <- theme_minimal() +
   )
 
 server <- function(input, output, session) {
+  ### Reactive Context ####
   dataParse <- reactive({
     validate(need(input$naOmit != "", "Waiting for Data..."))
     ## Start Reactive wrap
@@ -58,13 +55,14 @@ server <- function(input, output, session) {
     }
     
   })
-  
+  ### CheckBox = Omit NA ####
   output$input1 <- renderUI({
     checkboxInput(inputId = "naOmit",
                   label = "Omit NAs?",
                   value = FALSE)
   })
   
+  ### Slider = Category Choice ####
   output$topCat <- renderUI({
     sliderInput(
       inputId = "catNum",
@@ -76,7 +74,20 @@ server <- function(input, output, session) {
     )
   })
   
+  ### Select = Category ####
+  output$CatPick <- renderUI({
+    d <- unique(df$prime_genre)
+    
+    selectInput(
+      inputId = "catChoice",
+      label = "Please Select Category",
+      choices = d,
+      selected = d[1],
+      width = "100%"
+    )
+  })
   
+  ### Render = Pie_main ####
   output$plot1 <- renderPlot({
     validate(need(length(dataParse()) != 0, "Loading..."))
     CatTally <- dataParse()
@@ -100,6 +111,7 @@ server <- function(input, output, session) {
     
   })
   
+  ### Render = Hist_main? ####
   output$plot2 <- renderPlot({
     dataParse()
     
@@ -118,28 +130,27 @@ server <- function(input, output, session) {
     
   })
   
-  output$table1 <- renderTable({
-    g <- dataParse()
+  ### Render = Hist - Ratings####
+  output$plot4 <- renderPlot({
+    validate(need(input$catChoice != "", "Loading..."))
     
-    g
-  })
-  
-  output$table2 <- renderDataTable({
-    head(df[, 1:15] %>% as.tibble(), 25)
-  })
-  
-  output$CatPick <- renderUI({
-    d <- unique(df$prime_genre)
+    j <- input$catChoice
+    k <- df %>% filter(prime_genre == j)
     
-    selectInput(
-      inputId = "catChoice",
-      label = "Please Select Category",
-      choices = d,
-      selected = d[1],
-      width = "100%"
-    )
+    k %>% mutate(rateSummary = fct_infreq(cont_rating)) %>%
+      ggplot(aes(fct_rev(cont_rating))) + geom_bar() + coord_flip()
+    
+    
+    k %>% count(cont_rating) %>% 
+      mutate(cont_rating = fct_reorder(cont_rating, n, sum)) %>% 
+      filter(cont_rating != "NA") %>%
+      ggplot(aes(cont_rating, n)) + 
+      geom_col(aes(fill = cont_rating)) + 
+      coord_flip() + scale_fill_brewer(palette = "Blues")
+    
   })
   
+  ### Render = Pie - Rating ####
   output$plot3 <- renderPlot({
     validate(need(input$catChoice != "", "Loading..."))
     j <- input$catChoice
@@ -160,7 +171,36 @@ server <- function(input, output, session) {
       theme(axis.title.y = element_blank())
     g1
   })
+  ### Render = Size ####
+  output$plot5 <- renderPlot({
+    
+    ### add validate.
+    ### add filtering correctly.
+    
+    dfMBGenre <- df %>% group_by(prime_genre) %>%
+      summarize(max = max(size_bytes)/1000000,
+                min = min(size_bytes)/1000000) %>%
+      arrange(desc(max))
+    
+    ggplot(data = dfMBGenre) + geom_bar(aes(x = prime_genre, 
+                                            y = max, 
+                                            fill = prime_genre), stat = "identity") + 
+      theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  })
+  ### Table = Full ####
+  output$table1 <- renderTable({
+    g <- dataParse()
+    
+    g
+  })
   
+  ### Table = Check? ####
+  output$table2 <- renderDataTable({
+    head(df[, 1:15] %>% as.tibble(), 25)
+  })
+  
+  
+  ### Table = Category ####
   output$table3 <- renderTable({
     validate(need(input$catChoice != "", "Loading..."))
     j <- input$catChoice
@@ -170,20 +210,6 @@ server <- function(input, output, session) {
     k$percent <-
       (k$n / sum(k$n)) %>% round(., digits = 2) %>% percent()
     k
-  })
-  
-  output$plot4 <- renderPlot({
-    validate(need(input$catChoice != "", "Loading..."))
-    
-    j <- input$catChoice
-    k <- df %>% filter(prime_genre == j)
-    
-    k %>% mutate(rateSummary = fct_infreq(cont_rating)) %>%
-      ggplot(aes(fct_rev(cont_rating))) + geom_bar() + coord_flip()
-    
-    
-    k %>% count(cont_rating) %>% mutate(cont_rating = fct_reorder(cont_rating, n, sum)) %>% filter(cont_rating != "NA") %>%
-      ggplot(aes(cont_rating, n)) + geom_col(aes(fill = cont_rating)) + coord_flip()
-    
-  })
+  })  
+  ### End of Server ####
 }

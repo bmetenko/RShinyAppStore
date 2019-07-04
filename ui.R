@@ -97,6 +97,12 @@ Box_CatPie_Plot3 <- box(plotOutput("plot3"))
 
 Box_CatHist_Plot4 <- box(plotOutput("plot4"))
 
+BoxTop_Placeholder <- box(title = "Work In Progress", 
+                          status = "warning", 
+                          solidHeader = T,
+                          width = "100%",
+                          plotOutput("plot5"))
+
 #### Information Tab ####
 Tab_Info <- tabItem(
   tabName = "Summary",
@@ -104,7 +110,7 @@ Tab_Info <- tabItem(
   h3("Data source: "),
   h6("https://www.kaggle.com/ramamet4/app-store-apple-data-set-10k-apps"),
   h4("This data set contains more than 7000 Apple iOS mobile application details.
-    The data was extracted from the iTunes Search API at the Apple Inc website."))
+     The data was extracted from the iTunes Search API at the Apple Inc website."))
 
 #### Full Table Tab ####
 Tab_CatFull_Table <-  box(dataTableOutput("table2"), width = "50%")
@@ -118,13 +124,16 @@ ui <- dashboardPage(skin = "black",
                         tabItem(
                           tabName = "Plots",
                           # BoxTop_Pie_Plot1,
-                          # BoxTop_Hist_Plot2,,
+                          # BoxTop_Hist_Plot2,
                           fluidRow(column(6,Box_Clean), 
                                    column(6, Box_Category)),
                           tabBox(id = "TabBox1", width = "100%",
                                  selected = "Pie Chart",
                                  tabPanel("Pie Chart", BoxTop_Pie_Plot1), 
-                                 tabPanel("Histogram", BoxTop_Hist_Plot2))
+                                 tabPanel("Histogram", BoxTop_Hist_Plot2),
+                                 tabPanel("Storage", BoxTop_Placeholder)
+                          )
+                          
                         ),
                         Tab_Info,
                         tabItem(tabName = "CatPlots", fluidPage(
@@ -141,8 +150,12 @@ ui <- dashboardPage(skin = "black",
 
 #### Todo list ####
 # TODO: Add Download Buttons.
+# TODO: Sizes_min_max vs category. vs. user rating.
 # TODO: Column (6) main tabs.
-# TODO: Travis CI.
 # TODO: Tab box convert.
 # TODO: Update person statement in UI.
 # TODO: Scatterplots and ggplotly output.
+# TODO: Clean up code.
+# TODO: Start on Powerpoint or Xaringan.
+# TODO: Unit tests.
+# TODO: Aside: NASA project.
