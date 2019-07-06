@@ -102,7 +102,8 @@ server <- function(input, output, session) {
                color = "white",
                stat = "identity") +
       blank_theme +
-      scale_fill_discrete(name = "App Genre")
+      scale_fill_discrete(name = "App Genre") +
+      {if(input$mobileCheck) theme(legend.position = "none")}
     
     
     
@@ -185,7 +186,8 @@ server <- function(input, output, session) {
     ggplot(data = dfMBGenre) + geom_bar(aes(x = prime_genre, 
                                             y = max, 
                                             fill = prime_genre), stat = "identity") + 
-      theme(axis.text.x = element_text(angle = 45, hjust = 1))
+      theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+      {if(input$mobileCheck) theme(legend.position = "none")}
   })
   ### Table = Full ####
   output$table1 <- renderTable({

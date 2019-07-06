@@ -45,20 +45,34 @@ Main_Sidebar <- dashboardSidebar(sidebarMenu(
 ))
 
 #### Modifications #####
-Box_Clean <- box(width = "50%", 
-                 height = "100px",
-                 align = "center",
-                 uiOutput(outputId = "input1"),
-                 solidHeader = T,
-                 title = "Clean?",
-                 status = "warning"
+Box_Clean <- box(
+  width = "50%",
+  height = "100px",
+  align = "center",
+  uiOutput(outputId = "input1"),
+  solidHeader = T,
+  title = "Clean?",
+  status = "warning"
 )
 
-Box_Category <- box(width = "50%", 
-                    height = "100px",
-                    uiOutput(outputId = "topCat"), 
-                    status = "warning",
-                    solidHeader = TRUE)
+Box_Category <- box(
+  width = "50%",
+  height = "100px",
+  uiOutput(outputId = "topCat"),
+  status = "warning",
+  solidHeader = TRUE
+)
+Box_Mobile <- box(
+  width = "50%",
+  height = "100px",
+  status = "warning",
+  align = "center",
+  checkboxInput("mobileCheck",
+                label = "Move Legends?",
+                value = FALSE),
+  solidHeader = TRUE,
+  title = "Mobile?"
+)
 
 #### Box with plots ####
 BoxTop_Pie_Plot1 <- box(
@@ -75,7 +89,7 @@ BoxTop_Pie_Plot1 <- box(
 
 BoxTop_Hist_Plot2 <- box(
   title = tagList(icon("signal",
-                       lib = "glyphicon"), 
+                       lib = "glyphicon"),
                   "Histogram Distribution"),
   plotOutput("plot2"),
   solidHeader = TRUE,
@@ -97,20 +111,27 @@ Box_CatPie_Plot3 <- box(plotOutput("plot3"))
 
 Box_CatHist_Plot4 <- box(plotOutput("plot4"))
 
-BoxTop_Placeholder <- box(title = "Work In Progress", 
-                          status = "warning", 
-                          solidHeader = T,
-                          width = "100%",
-                          plotOutput("plot5"))
+BoxTop_Placeholder <- box(
+  title = "App Size by Category",
+  status = "primary",
+  solidHeader = T,
+  width = "100%",
+  plotOutput("plot5")
+)
 
 #### Information Tab ####
 Tab_Info <- tabItem(
   tabName = "Summary",
   h2("App Store Data from 2017"),
   h3("Data source: "),
-  h6("https://www.kaggle.com/ramamet4/app-store-apple-data-set-10k-apps"),
-  h4("This data set contains more than 7000 Apple iOS mobile application details.
-     The data was extracted from the iTunes Search API at the Apple Inc website."))
+  h6(
+    "https://www.kaggle.com/ramamet4/app-store-apple-data-set-10k-apps"
+  ),
+  h4(
+    "This data set contains more than 7000 Apple iOS mobile application details.
+    The data was extracted from the iTunes Search API at the Apple Inc website."
+  )
+)
 
 #### Full Table Tab ####
 Tab_CatFull_Table <-  box(dataTableOutput("table2"), width = "50%")
@@ -125,26 +146,32 @@ ui <- dashboardPage(skin = "black",
                           tabName = "Plots",
                           # BoxTop_Pie_Plot1,
                           # BoxTop_Hist_Plot2,
-                          fluidRow(column(6,Box_Clean), 
-                                   column(6, Box_Category)),
-                          tabBox(id = "TabBox1", width = "100%",
-                                 selected = "Pie Chart",
-                                 tabPanel("Pie Chart", BoxTop_Pie_Plot1), 
-                                 tabPanel("Histogram", BoxTop_Hist_Plot2),
-                                 tabPanel("Storage", BoxTop_Placeholder)
+                          fluidRow(
+                            column(4, Box_Clean),
+                            column(4, Box_Category),
+                            column(4, Box_Mobile)
+                          ),
+                          tabBox(
+                            id = "TabBox1",
+                            width = "100%",
+                            selected = "Pie Chart",
+                            tabPanel("Pie Chart", BoxTop_Pie_Plot1),
+                            tabPanel("Histogram", BoxTop_Hist_Plot2),
+                            tabPanel("Storage", BoxTop_Placeholder)
                           )
                           
                         ),
                         Tab_Info,
-                        tabItem(tabName = "CatPlots", fluidPage(
-                          Box_CatTable,
-                          Box_CatPie_Plot3,
-                          Box_CatHist_Plot4
-                        )),
-                        tabItem(tabName = "Table", fluidPage(
-                          h2(""), 
-                          Tab_CatFull_Table)
-                        )))))
+                        tabItem(
+                          tabName = "CatPlots",
+                          fluidPage(Box_CatTable,
+                                    Box_CatPie_Plot3,
+                                    Box_CatHist_Plot4)
+                        ),
+                        tabItem(tabName = "Table", fluidPage(h2(""),
+                                                             Tab_CatFull_Table))
+                      )
+                    )))
 
 
 
