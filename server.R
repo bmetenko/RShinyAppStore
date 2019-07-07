@@ -4,6 +4,7 @@ library(tidyverse)
 library(cowplot)
 library(scales)
 library(forcats)
+library(ggpubr)
 
 # source("package_check.R")
 
@@ -40,7 +41,7 @@ server <- function(input, output, session) {
                levels = CatTally$prime_genre)
       
     } else {
-      CatTally <- CatTally[c(1:input$catNum, 24), ]
+      CatTally <- CatTally[c(0:input$catNum, 24), ]
       CatTally <- CatTally[order(CatTally$n, decreasing = T), ]
       CatTally$prime_genre <-
         factor(x = CatTally$prime_genre,
@@ -189,6 +190,35 @@ server <- function(input, output, session) {
       theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
       {if(input$mobileCheck) theme(legend.position = "none")}
   })
+  ### Render = UI = Legend_Mobile ####
+  # output$Legend_Pie_Mobile <- renderPlot({
+  #   
+  #   if (!input$mobileCheck) {
+  #     return()
+  #   } else {
+  #     validate(need(length(dataParse()) != 0, "Loading..."))
+  #     CatTally <- dataParse()
+  #     
+  #     
+  #     bp <- ggplot(CatTally, aes(
+  #       x = "",
+  #       y = n,
+  #       fill = as.factor(prime_genre)
+  #     )) +
+  #       geom_bar(width = 1,
+  #                color = "white",
+  #                stat = "identity") +
+  #       blank_theme +
+  #       scale_fill_discrete(name = "App Genre") +
+  #       {if(input$mobileCheck) theme(legend.position = "none")}
+  #     # bp + coord_polar("y", start = 0)
+  #     
+  #     get_legend(bp) %>% as_ggplot()
+  #     # bp_leg <- as_ggplot(bp_leg)
+  #     # plot_grid(bp_leg)
+  #   }
+  #   
+  # })
   ### Table = Full ####
   output$table1 <- renderTable({
     g <- dataParse()

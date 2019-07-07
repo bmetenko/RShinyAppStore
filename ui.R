@@ -119,6 +119,8 @@ BoxTop_Placeholder <- box(
   plotOutput("plot5")
 )
 
+BoxTop_Pie_Legend <- plotOutput("Legend_Pie_Mobile")
+
 #### Information Tab ####
 Tab_Info <- tabItem(
   tabName = "Summary",
@@ -178,11 +180,12 @@ ui <- dashboardPage(skin = "black",
 #### Todo list ####
 # TODO: Add Download Buttons.
 # TODO: Sizes_min_max vs category. vs. user rating.
-# TODO: Column (6) main tabs.
-# TODO: Tab box convert.
+# TODO: Column (4) main tabs. Rows?
+# TODO: Tab box convert. Fix histogram and ordering of the 
 # TODO: Update person statement in UI.
 # TODO: Scatterplots and ggplotly output.
 # TODO: Clean up code.
 # TODO: Start on Powerpoint or Xaringan.
 # TODO: Unit tests.
+# TODO: Legend output differently.
 # TODO: Aside: NASA project.
