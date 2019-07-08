@@ -44,6 +44,30 @@ Main_Sidebar <- dashboardSidebar(sidebarMenu(
   
 ))
 
+#### Plain HTML ####
+
+info_Title <- HTML('<h2 style="color: #7b94a4; 
+                   background-color: #bdcdc5; 
+                   text-shadow: 3px 2px #dee6de;
+                   text-align: center; 
+                   border-radius: 25px;">Information</h2>')
+
+paragraph_format <- function(str){
+  tmp <- paste0('<h5 style="color: #393939; 
+                background-color: #ffac6a;
+                text-align: center;
+                padding: 15px;
+                border-radius: 10px;">',str,'</h5>')
+  tmp2 <- HTML(tmp)
+  
+  return(tmp2)
+}
+
+#### Text Sources ####
+
+Pie_Explain <- "This categorical distribution visualization can be used by stakeholders to identify specific app markets that are less inundated by apps than others, as well as help plan out how much competition there is in this space for future app development. Popularity of specific app genres can also be avaluated for consideration."
+
+
 #### Modifications #####
 Box_Clean <- box(
   width = "50%",
@@ -157,18 +181,24 @@ ui <- dashboardPage(skin = "black",
                             id = "TabBox1",
                             width = "100%",
                             selected = "Pie Chart",
-                            tabPanel("Pie Chart", BoxTop_Pie_Plot1),
-                            tabPanel("Histogram", BoxTop_Hist_Plot2),
-                            tabPanel("Storage", BoxTop_Placeholder)
+                            tabPanel("Pie Chart", 
+                                     BoxTop_Pie_Plot1, 
+                                     info_Title, 
+                                     paragraph_format(Pie_Explain)),
+                            tabPanel("Histogram", 
+                                     BoxTop_Hist_Plot2,
+                                     info_Title),
+                            tabPanel("Storage", 
+                                     BoxTop_Placeholder,
+                                     info_Title)
                           )
                           
                         ),
                         Tab_Info,
                         tabItem(
                           tabName = "CatPlots",
-                          fluidPage(Box_CatTable,
-                                    Box_CatPie_Plot3,
-                                    Box_CatHist_Plot4)
+                          fluidPage(Box_CatTable),
+                          fluidRow(Box_CatPie_Plot3, Box_CatHist_Plot4)
                         ),
                         tabItem(tabName = "Table", fluidPage(h2(""),
                                                              Tab_CatFull_Table))
