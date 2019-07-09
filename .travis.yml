@@ -23,6 +23,7 @@ r_packages:
   - tidyverse
   - rsconnect
   - ggpubr
+  - sqldf
 
 script:
   - R -f deploy.R
