@@ -6,6 +6,7 @@ library(scales)
 library(forcats)
 library(ggpubr)
 library(sqldf)
+library(RColorBrewer)
 
 # source("package_check.R")
 # devtools::install_github("ramamet/applestoreR")
@@ -29,23 +30,24 @@ server <- function(input, output, session) {
   dataParse <- reactive({
     validate(need(input$naOmit != "", "Waiting for Data..."))
     ## Start Reactive wrap
-    CatTally <- sqldf("select prime_genre, count(*) from df group by prime_genre order by count(*) desc")
+    CatTally <-
+      sqldf("select prime_genre, count(*) from df group by prime_genre order by count(*) desc")
     
     colnames(CatTally)[2] <- "n"
     
     if (input$naOmit == TRUE) {
-      CatTally <- CatTally[-1,]
+      CatTally <- CatTally[-1, ]
       j <- dim(CatTally)[1]
-      CatTally <- CatTally[-((input$catNum+1):j),]
-      CatTally <- CatTally[order(CatTally$n, decreasing = T),]
+      CatTally <- CatTally[-((input$catNum + 1):j), ]
+      CatTally <- CatTally[order(CatTally$n, decreasing = T), ]
       CatTally$prime_genre <-
         factor(x = CatTally$prime_genre,
                levels = CatTally$prime_genre)
       
     } else {
       j <- dim(CatTally)[1]
-      CatTally <- CatTally[-((input$catNum+1):j),]
-      CatTally <- CatTally[order(CatTally$n, decreasing = T),]
+      CatTally <- CatTally[-((input$catNum + 1):j), ]
+      CatTally <- CatTally[order(CatTally$n, decreasing = T), ]
       CatTally$prime_genre <-
         factor(x = CatTally$prime_genre,
                levels = CatTally$prime_genre)
@@ -119,8 +121,9 @@ server <- function(input, output, session) {
     
   })
   
-  ### Render = Hist_main? ####
+  ### Render = Hist_main ####
   output$plot2 <- renderPlot({
+    validate(need(length(dataParse()) != 0, "Loading..."))
     dataParse()
     
     CatTally <- dataParse()
@@ -132,6 +135,7 @@ server <- function(input, output, session) {
                    fill = prime_genre
                  )) +
       geom_bar(stat = "identity") +
+      geom_label(label = CatTally$n) +
       blank_theme + theme(legend.position = "none",
                           axis.text.x = element_text(angle = 45))
     bp
@@ -189,10 +193,27 @@ server <- function(input, output, session) {
                 min = min(size_bytes) / 1000000) %>%
       arrange(desc(max))
     
+    dfMBGenre$prime_genre <- fct_inorder(dfMBGenre$prime_genre)
+    
+    mycolors = c(brewer.pal(name = "Set3", n = 12),
+                 brewer.pal(name = "Paired", n = 12))
+    
+    
     ggplot(data = dfMBGenre) + geom_bar(aes(x = prime_genre,
                                             y = max,
-                                            fill = prime_genre), stat = "identity") +
+                                            fill = prime_genre),
+                                        color = "black",
+                                        stat = "identity") +
+      geom_bar(
+        aes(x = prime_genre,
+            y = min),
+        fill = "red",
+        color = "black",
+        stat = "identity"
+      ) +
+      scale_fill_manual(values = mycolors) +
       theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+      labs(y = "App Size (MB)", x = "",  fill = "App Genre")  +
       {
         if (input$mobileCheck)
           theme(legend.position = "none")

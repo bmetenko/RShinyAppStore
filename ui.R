@@ -74,6 +74,12 @@ paragraph_format <- function(str) {
 Pie_Explain <-
   "This categorical distribution visualization can be used by stakeholders to identify specific app markets that are less inundated by apps than others, as well as help plan out how much competition there is in this space for future app development. Popularity of specific app genres can also be avaluated for consideration."
 
+Hist_Explain <-
+  "This categorical distribution histogram more clearly and cleanly defines the quantity of apps found for each category on the iPhone app store in 2017. It can be used similarly in discussion as the pie chart visualization in the previous tab."
+
+Size_Explain <-
+  "Data on the app size differences can be used as a proxy for development time involved in publishing and maintaining a specific type of app. Size data can be a rough proxy for how much money is necessary for these actions as well."
+
 
 #### Modifications #####
 Box_Clean <- box(
@@ -197,12 +203,22 @@ ui <- dashboardPage(skin = "black",
                                 BoxTop_Pie_Legend
                               )
                             ),
-                            tabPanel("Histogram",
-                                     BoxTop_Hist_Plot2,
-                                     info_Title),
-                            tabPanel("Storage",
-                                     BoxTop_Placeholder,
-                                     info_Title)
+                            tabPanel(
+                              "Histogram",
+                              fluidPage(
+                                BoxTop_Hist_Plot2,
+                                info_Title,
+                                paragraph_format(Hist_Explain)
+                              )
+                            ),
+                            tabPanel(
+                              "Storage",
+                              fluidPage(
+                                BoxTop_Placeholder,
+                                info_Title,
+                                paragraph_format(Size_Explain)
+                              )
+                            )
                           )
                           
                         ),
