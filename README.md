@@ -4,7 +4,7 @@
 
 
 A simple shiny dashboard to quickly evaluate Apple App Store Data from 2017.
-It is available for view in its current (not fully complete form) at:
+It is available for view in its most current successful build state at:
 > https://bmetenko.shinyapps.io/RShinyAppStore/
 
 Data used is available freely at:
