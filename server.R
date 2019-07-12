@@ -36,18 +36,18 @@ server <- function(input, output, session) {
     colnames(CatTally)[2] <- "n"
     
     if (input$naOmit == TRUE) {
-      CatTally <- CatTally[-1, ]
+      CatTally <- CatTally[-1,]
       j <- dim(CatTally)[1]
-      CatTally <- CatTally[-((input$catNum + 1):j), ]
-      CatTally <- CatTally[order(CatTally$n, decreasing = T), ]
+      CatTally <- CatTally[-((input$catNum + 1):j),]
+      CatTally <- CatTally[order(CatTally$n, decreasing = T),]
       CatTally$prime_genre <-
         factor(x = CatTally$prime_genre,
                levels = CatTally$prime_genre)
       
     } else {
       j <- dim(CatTally)[1]
-      CatTally <- CatTally[-((input$catNum + 1):j), ]
-      CatTally <- CatTally[order(CatTally$n, decreasing = T), ]
+      CatTally <- CatTally[-((input$catNum + 1):j),]
+      CatTally <- CatTally[order(CatTally$n, decreasing = T),]
       CatTally$prime_genre <-
         factor(x = CatTally$prime_genre,
                levels = CatTally$prime_genre)
@@ -153,13 +153,16 @@ server <- function(input, output, session) {
       ggplot(aes(fct_rev(cont_rating))) + geom_bar() + coord_flip()
     
     
-    k %>% count(cont_rating) %>%
+    g1 <- k %>% count(cont_rating) %>%
       mutate(cont_rating = fct_reorder(cont_rating, n, sum)) %>%
       filter(cont_rating != "NA") %>%
       ggplot(aes(cont_rating, n)) +
       geom_col(aes(fill = cont_rating)) +
       coord_flip() + scale_fill_brewer(palette = "Blues")
     
+    
+    catHist <<- g1
+    g1
   })
   
   ### Render = Pie - Rating ####
@@ -181,6 +184,8 @@ server <- function(input, output, session) {
       scale_fill_brewer(palette = "Spectral") + ggtitle(j) + labs(fill = "Rating") +
       blank_theme +
       theme(axis.title.y = element_blank())
+    
+    catPie <<- g1
     g1
   })
   ### Render = Size ####
@@ -285,5 +290,30 @@ server <- function(input, output, session) {
       (k$n / sum(k$n)) %>% round(., digits = 2) %>% percent()
     k
   })
+  
+  ### Data Download ####
+  
+  output$Pie_Download <-
+    downloadHandler(
+      filename = function() {
+        "AppCatPie.jpeg"
+      },
+      content = function(file) {
+        # ggsave(filename = file, plot = input$plot3())
+        ggsave(catPie, filename = file, scale = 3)
+      },
+      contentType = "image/jpeg"
+    )
+  
+  output$Hist_Download <-
+    downloadHandler(
+      filename = function() {
+        "AppCatHist.jpeg"
+      } ,
+      content = function(file) {
+        ggsave(catHist, filename = file, scale = 3)
+      },
+      contentType = "image/jpeg"
+    )
   ### End of Server ####
 }

@@ -80,6 +80,11 @@ Hist_Explain <-
 Size_Explain <-
   "Data on the app size differences can be used as a proxy for development time involved in publishing and maintaining a specific type of app. Size data can be a rough proxy for how much money is necessary for these actions as well."
 
+#### Data Download ####
+Down_Cat_Pie <-
+  downloadButton(label = "Download Plot", outputId = "Pie_Download")
+Down_Cat_Hist <-
+  downloadButton(label = "Download Plot", outputId = "Hist_Download")
 
 #### Modifications #####
 Box_Clean <- box(
@@ -144,9 +149,11 @@ Box_CatTable <- box(
   width = "100px"
 )
 
-Box_CatPie_Plot3 <- box(plotOutput("plot3"))
+Box_CatPie_Plot3 <-
+  box(plotOutput("plot3"), (Down_Cat_Pie), align = "center")
 
-Box_CatHist_Plot4 <- box(plotOutput("plot4"))
+Box_CatHist_Plot4 <-
+  box(plotOutput("plot4"), (Down_Cat_Hist), align = "center")
 
 BoxTop_Placeholder <- box(
   title = "App Size by Category",
@@ -171,6 +178,8 @@ Tab_Info <- tabItem(
     The data was extracted from the iTunes Search API at the Apple Inc website."
   )
 )
+
+
 
 #### Full Table Tab ####
 Tab_CatFull_Table <-  box(dataTableOutput("table2"), width = "50%")
@@ -242,7 +251,7 @@ ui <- dashboardPage(skin = "black",
 # TODO: Tab box convert. Fix histogram and ordering of the
 # TODO: Update person statement in UI.
 # TODO: Scatterplots and ggplotly output.
-# TODO: Clean up code.
+# TODO: Clean up code. ShinyWidgets.
 # TODO: Start on Powerpoint or Xaringan.
 # TODO: Unit tests.
 # TODO: Legend output differently.
