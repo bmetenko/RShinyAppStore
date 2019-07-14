@@ -48,8 +48,7 @@ Main_Sidebar <- dashboardSidebar(sidebarMenu(
 
 info_Title <- HTML(
   '<h2 style="color: #7b94a4;
-  background-color: #bdcdc5;
-  text-shadow: 3px 2px #dee6de;
+  background-image: linear-gradient(-90deg, #bdcdc5, #dee6de);
   text-align: center;
   border-radius: 25px;">Information</h2>'
 )
@@ -57,7 +56,7 @@ info_Title <- HTML(
 paragraph_format <- function(str) {
   tmp <- paste0(
     '<h5 style="color: #393939;
-    background-color: #ffac6a;
+    background-image: linear-gradient(-90deg, red, yellow);
     text-align: center;
     padding: 15px;
     border-radius: 10px;">',
@@ -68,6 +67,8 @@ paragraph_format <- function(str) {
   
   return(tmp2)
 }
+
+### Background CSS maybe?
 
 #### Text Sources ####
 
@@ -81,10 +82,8 @@ Size_Explain <-
   "Data on the app size differences can be used as a proxy for development time involved in publishing and maintaining a specific type of app. Size data can be a rough proxy for how much money is necessary for these actions as well."
 
 #### Data Download ####
-Down_Cat_Pie <-
-  downloadButton(label = "Download Plot", outputId = "Pie_Download")
-Down_Cat_Hist <-
-  downloadButton(label = "Download Plot", outputId = "Hist_Download")
+Down_Cat_Pie <-  downloadButton(label = "Download Plot", outputId = "Pie_Download")
+Down_Cat_Hist <-  downloadButton(label = "Download Plot", outputId = "Hist_Download")
 
 #### Modifications #####
 Box_Clean <- box(
@@ -149,11 +148,9 @@ Box_CatTable <- box(
   width = "100px"
 )
 
-Box_CatPie_Plot3 <-
-  box(plotOutput("plot3"), (Down_Cat_Pie), align = "center")
+Box_CatPie_Plot3 <- box(plotOutput("plot3"), (Down_Cat_Pie), align = "center")
 
-Box_CatHist_Plot4 <-
-  box(plotOutput("plot4"), (Down_Cat_Hist), align = "center")
+Box_CatHist_Plot4 <- box(plotOutput("plot4"), (Down_Cat_Hist), align = "center")
 
 BoxTop_Placeholder <- box(
   title = "App Size by Category",
@@ -245,14 +242,10 @@ ui <- dashboardPage(skin = "black",
 
 
 #### Todo list ####
-# TODO: Add Download Buttons.
 # TODO: Sizes_min_max vs category. vs. user rating.
 # TODO: Column (4) main tabs. Rows?
-# TODO: Tab box convert. Fix histogram and ordering of the
 # TODO: Update person statement in UI.
 # TODO: Scatterplots and ggplotly output.
 # TODO: Clean up code. ShinyWidgets.
 # TODO: Start on Powerpoint or Xaringan.
 # TODO: Unit tests.
-# TODO: Legend output differently.
-# TODO: Aside: NASA project.
