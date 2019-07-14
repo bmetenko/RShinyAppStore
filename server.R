@@ -169,7 +169,7 @@ server <- function(input, output, session) {
   output$plot3 <- renderPlot({
     validate(need(input$catChoice != "", "Loading..."))
     j <- input$catChoice
-    print(j)
+    # print(j)
     
     k <- df %>% filter(prime_genre == j) %>%
       select(user_rating) %>% group_by(user_rating) %>% tally()

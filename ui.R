@@ -5,6 +5,14 @@ library(shinydashboard)
 Main_Header <- dashboardHeader(
   title = "App Store Data (2017)",
   dropdownMenu(
+    type = "tasks",
+    badgeStatus = "success",
+    taskItem(value = 90, color = "green",
+             "Git Re-commit"),
+    taskItem(value = 75, color = "blue",
+             "Server deployment")
+  ),
+  dropdownMenu(
     type = "messages",
     messageItem(
       from = "Author",
@@ -13,50 +21,60 @@ Main_Header <- dashboardHeader(
       href = "https://github.com/bmetenko",
       time = "2019-06-17 8:50pm"
     )
-  ),
-  dropdownMenu(
-    type = "tasks",
-    badgeStatus = "success",
-    taskItem(value = 90, color = "green",
-             "Git Re-commit"),
-    taskItem(value = 75, color = "blue",
-             "Server deployment")
   )
 )
 
 #### SIDEBAR ####
-Main_Sidebar <- dashboardSidebar(sidebarMenu(
-  menuItem(text = tagList(
-    icon("dashboard", lib = "glyphicon"), "Data Plots"
+Main_Sidebar <- dashboardSidebar(
+  HTML(
+    '<style>
+  ul.nav.nav-tabs { align: center; width: 100%;
+#background-image: linear-gradient(-90deg, red, yellow); 
+background-color: #f39c12;
+color: white;}
+  ul.nav.nav-tabs a {
+color: white;
+font-weight: bold;
+  }
+  li {
+  text-align: left;
+  }
+</style>'
   ),
-  tabName = "Plots"),
-  menuItem(
-    text = tagList(icon("tags", lib = "glyphicon"), "Category Specifics"),
-    tabName = "CatPlots"
-  ),
-  menuItem(text = tagList(
-    icon("list-alt", lib = "glyphicon"), "Data Table"
-  ), tabName = "Table"),
-  menuItem(text = tagList(
-    icon("align-left", lib = "glyphicon"), "Data Summary"
-  ), tabName = "Summary")
-  
-  
-))
+  sidebarMenu(
+    menuItem(text = tagList(
+      icon("dashboard", lib = "glyphicon"), 
+      "Data Plots"
+    ),
+    tabName = "Plots"),
+    menuItem(
+      text = tagList(icon("tags", lib = "glyphicon"), "Category Specifics"),
+      tabName = "CatPlots"
+    ),
+    menuItem(text = tagList(
+      icon("list-alt", lib = "glyphicon"), "Data Table"
+    ), tabName = "Table"),
+    menuItem(text = tagList(
+      icon("align-left", lib = "glyphicon"), "Data Summary"
+    ), tabName = "Summary")
+    
+    
+  ))
 
 #### Plain HTML ####
 
 info_Title <- HTML(
-  '<h2 style="color: #7b94a4;
-  background-image: linear-gradient(-90deg, #bdcdc5, #dee6de);
+  '<h2 style="color: #3c8dbc;
+  background-image: radial-gradient( white, #f39c12);
   text-align: center;
+  font-family: Arial;
   border-radius: 25px;">Information</h2>'
 )
 
 paragraph_format <- function(str) {
   tmp <- paste0(
-    '<h5 style="color: #393939;
-    background-image: linear-gradient(-90deg, red, yellow);
+    '<h5 style="color: black;
+    background-color: #3c8dbc;
     text-align: center;
     padding: 15px;
     border-radius: 10px;">',
@@ -66,6 +84,12 @@ paragraph_format <- function(str) {
   tmp2 <- HTML(tmp)
   
   return(tmp2)
+}
+
+title_format <- function(str, ico) {
+  tags$body(align ="center", tagList(icon(ico,
+                                          lib = "glyphicon"),
+                                     str))
 }
 
 ### Background CSS maybe?
@@ -119,19 +143,15 @@ Box_Mobile <- box(
 BoxTop_Pie_Plot1 <- box(
   plotOutput("plot1"),
   width = "100%",
-  status = "success",
+  status = "primary",
   solidHeader = TRUE,
   align = "center",
-  title = tagList(icon("cog",
-                       lib = "glyphicon"),
-                  "App Category Distribution")
+  title = title_format("App Category Distribution", "cog")
 )
 
 
 BoxTop_Hist_Plot2 <- box(
-  title = tagList(icon("signal",
-                       lib = "glyphicon"),
-                  "Histogram Distribution"),
+  title = title_format("Histogram Distribution", "signal"),
   plotOutput("plot2"),
   solidHeader = TRUE,
   width = "100%",
@@ -140,8 +160,8 @@ BoxTop_Hist_Plot2 <- box(
 
 Box_CatTable <- box(
   solidHeader = T,
-  title = "Categorical Analysis",
-  status = "info",
+  title = title_format("Categorical Analysis", "tasks"),
+  status = "primary",
   uiOutput("CatPick"),
   tableOutput("table3"),
   align = "center",
@@ -152,8 +172,10 @@ Box_CatPie_Plot3 <- box(plotOutput("plot3"), (Down_Cat_Pie), align = "center")
 
 Box_CatHist_Plot4 <- box(plotOutput("plot4"), (Down_Cat_Hist), align = "center")
 
-BoxTop_Placeholder <- box(
-  title = "App Size by Category",
+BoxTop_Size <- box(
+  title = tagList(icon("export",
+                       lib = "glyphicon"),
+                  "App Size by Category"),
   status = "primary",
   solidHeader = T,
   width = "100%",
@@ -182,7 +204,7 @@ Tab_Info <- tabItem(
 Tab_CatFull_Table <-  box(dataTableOutput("table2"), width = "50%")
 
 #### UI DECLARATION ####
-ui <- dashboardPage(skin = "black",
+ui <- dashboardPage(skin = "black", 
                     Main_Header,
                     Main_Sidebar,
                     dashboardBody(fluidPage(
@@ -220,7 +242,7 @@ ui <- dashboardPage(skin = "black",
                             tabPanel(
                               "Storage",
                               fluidPage(
-                                BoxTop_Placeholder,
+                                BoxTop_Size,
                                 info_Title,
                                 paragraph_format(Size_Explain)
                               )
@@ -249,3 +271,4 @@ ui <- dashboardPage(skin = "black",
 # TODO: Clean up code. ShinyWidgets.
 # TODO: Start on Powerpoint or Xaringan.
 # TODO: Unit tests.
+# TODO: Plot Cache.
