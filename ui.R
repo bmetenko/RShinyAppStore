@@ -28,22 +28,31 @@ Main_Header <- dashboardHeader(
 Main_Sidebar <- dashboardSidebar(
   HTML(
     '<style>
-  ul.nav.nav-tabs { align: center; width: 100%;
-#background-image: linear-gradient(-90deg, red, yellow); 
-background-color: #f39c12;
-color: white;}
-  ul.nav.nav-tabs a {
-color: white;
-font-weight: bold;
-  }
-  li {
-  text-align: left;
-  }
-</style>'
+    ul.nav.nav-tabs { align: center; width: 100%;
+    #background-image: linear-gradient(-90deg, red, yellow);
+    background-color: #f39c12;
+    color: white;}
+    ul.nav.nav-tabs a {
+    color: white;
+    font-weight: bold;
+    }
+    li {
+    text-align: left;
+    }
+    th.dt-center, td.dt-center {
+    text-align: center;
+    }
+    # .box-header > div{
+    # border-radius: 10px;
+    # color: white;
+    # font-weight: bold;
+    # background-color: #3c8dbc;
+    # }
+    </style>'
   ),
   sidebarMenu(
     menuItem(text = tagList(
-      icon("dashboard", lib = "glyphicon"), 
+      icon("dashboard", lib = "glyphicon"),
       "Data Plots"
     ),
     tabName = "Plots"),
@@ -59,7 +68,8 @@ font-weight: bold;
     ), tabName = "Summary")
     
     
-  ))
+  )
+)
 
 #### Plain HTML ####
 
@@ -87,9 +97,9 @@ paragraph_format <- function(str) {
 }
 
 title_format <- function(str, ico) {
-  tags$body(align ="center", tagList(icon(ico,
-                                          lib = "glyphicon"),
-                                     str))
+  tags$body(align = "center", tagList(icon(ico,
+                                           lib = "glyphicon"),
+                                      str))
 }
 
 ### Background CSS maybe?
@@ -106,8 +116,10 @@ Size_Explain <-
   "Data on the app size differences can be used as a proxy for development time involved in publishing and maintaining a specific type of app. Size data can be a rough proxy for how much money is necessary for these actions as well."
 
 #### Data Download ####
-Down_Cat_Pie <-  downloadButton(label = "Download Plot", outputId = "Pie_Download")
-Down_Cat_Hist <-  downloadButton(label = "Download Plot", outputId = "Hist_Download")
+Down_Cat_Pie <-
+  downloadButton(label = "Download Plot", outputId = "Pie_Download")
+Down_Cat_Hist <-
+  downloadButton(label = "Download Plot", outputId = "Hist_Download")
 
 #### Modifications #####
 Box_Clean <- box(
@@ -140,13 +152,15 @@ Box_Mobile <- box(
 )
 
 #### Box with plots ####
-BoxTop_Pie_Plot1 <- box(
-  plotOutput("plot1"),
-  width = "100%",
-  status = "primary",
-  solidHeader = TRUE,
-  align = "center",
-  title = title_format("App Category Distribution", "cog")
+BoxTop_Pie_Plot1 <- tagList(
+  box(
+    plotOutput("plot1"),
+    width = "100%",
+    status = "primary",
+    solidHeader = TRUE,
+    align = "center",
+    title = title_format("App Category Distribution", "cog")
+  )
 )
 
 
@@ -168,9 +182,11 @@ Box_CatTable <- box(
   width = "100px"
 )
 
-Box_CatPie_Plot3 <- box(plotOutput("plot3"), (Down_Cat_Pie), align = "center")
+Box_CatPie_Plot3 <-
+  box(plotOutput("plot3"), (Down_Cat_Pie), align = "center")
 
-Box_CatHist_Plot4 <- box(plotOutput("plot4"), (Down_Cat_Hist), align = "center")
+Box_CatHist_Plot4 <-
+  box(plotOutput("plot4"), (Down_Cat_Hist), align = "center")
 
 BoxTop_Size <- box(
   title = tagList(icon("export",
@@ -199,12 +215,25 @@ Tab_Info <- tabItem(
 )
 
 
+#### Data Tables ####
+pieTable <- box(
+  id = "tablePie",
+  tableOutput('pieTable'),
+  width = "100%",
+  solidHeader = TRUE,
+  collapsed = TRUE,
+  title = "Data Table",
+  collapsible = TRUE
+)
+
+
+#### Button Toggle ####
 
 #### Full Table Tab ####
 Tab_CatFull_Table <-  box(dataTableOutput("table2"), width = "50%")
 
 #### UI DECLARATION ####
-ui <- dashboardPage(skin = "black", 
+ui <- dashboardPage(skin = "black",
                     Main_Header,
                     Main_Sidebar,
                     dashboardBody(fluidPage(
@@ -241,14 +270,18 @@ ui <- dashboardPage(skin = "black",
                             ),
                             tabPanel(
                               "Storage",
-                              fluidPage(
-                                BoxTop_Size,
-                                info_Title,
-                                paragraph_format(Size_Explain)
-                              )
+                              fluidPage(BoxTop_Size,
+                                        info_Title,
+                                        paragraph_format(Size_Explain))
                             )
-                          )
-                          
+                          ),
+                          fluidRow(align = "center",
+                                   column(
+                                     align = "center",
+                                     ## Maybe implement uioutput switch statement based on
+                                     ## the current tab you're on.
+                                     pieTable, width = 12
+                                   ))
                         ),
                         Tab_Info,
                         tabItem(
@@ -272,3 +305,4 @@ ui <- dashboardPage(skin = "black",
 # TODO: Start on Powerpoint or Xaringan.
 # TODO: Unit tests.
 # TODO: Plot Cache.
+# TODO: Write out naming conventions.

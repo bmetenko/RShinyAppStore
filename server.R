@@ -273,10 +273,13 @@ server <- function(input, output, session) {
     g
   })
   
-  ### Table = Check? ####
-  output$table2 <- renderDataTable({
-    head(df[, 1:15] %>% as.tibble(), 25)
-  })
+  ### Table = pieCheck? ####
+  output$pieTable <- renderTable({
+    g <- dataParse()
+    
+    colnames(g) <- c("App Category", "Number of Apps")
+    g
+  }, align = "c")
   
   
   ### Table = Category ####
@@ -300,7 +303,7 @@ server <- function(input, output, session) {
       },
       content = function(file) {
         # ggsave(filename = file, plot = input$plot3())
-        ggsave(catPie, filename = file, scale = 3)
+        ggsave(catPie, filename = file, scale = 5)
       },
       contentType = "image/jpeg"
     )
@@ -311,7 +314,7 @@ server <- function(input, output, session) {
         "AppCatHist.jpeg"
       } ,
       content = function(file) {
-        ggsave(catHist, filename = file, scale = 3)
+        ggsave(catHist, filename = file, scale = 5)
       },
       contentType = "image/jpeg"
     )
