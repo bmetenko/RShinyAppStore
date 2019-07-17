@@ -36,18 +36,18 @@ server <- function(input, output, session) {
     colnames(CatTally)[2] <- "n"
     
     if (input$naOmit == TRUE) {
-      CatTally <- CatTally[-1,]
+      CatTally <- CatTally[-1, ]
       j <- dim(CatTally)[1]
-      CatTally <- CatTally[-((input$catNum + 1):j),]
-      CatTally <- CatTally[order(CatTally$n, decreasing = T),]
+      CatTally <- CatTally[-((input$catNum + 1):j), ]
+      CatTally <- CatTally[order(CatTally$n, decreasing = T), ]
       CatTally$prime_genre <-
         factor(x = CatTally$prime_genre,
                levels = CatTally$prime_genre)
       
     } else {
       j <- dim(CatTally)[1]
-      CatTally <- CatTally[-((input$catNum + 1):j),]
-      CatTally <- CatTally[order(CatTally$n, decreasing = T),]
+      CatTally <- CatTally[-((input$catNum + 1):j), ]
+      CatTally <- CatTally[order(CatTally$n, decreasing = T), ]
       CatTally$prime_genre <-
         factor(x = CatTally$prime_genre,
                levels = CatTally$prime_genre)
@@ -273,6 +273,11 @@ server <- function(input, output, session) {
     g
   })
   
+  ### Table = DataTable Tab ####
+  output$table2 <- renderDataTable({
+    df %>% na.omit() %>% select(-c(1, 2, 5,8,10, 15, 17))
+  })
+  
   ### Table = pieCheck? ####
   output$pieTable <- renderTable({
     g <- dataParse()
@@ -296,27 +301,15 @@ server <- function(input, output, session) {
   
   ### Data Download ####
   
-  output$Pie_Download <-
-    downloadHandler(
-      filename = function() {
-        "AppCatPie.jpeg"
-      },
-      content = function(file) {
-        # ggsave(filename = file, plot = input$plot3())
-        ggsave(catPie, filename = file, scale = 5)
-      },
-      contentType = "image/jpeg"
-    )
+  output$Pie_Download <- downloadHandler(filename = function(){"AppCatPie.jpeg"},
+                                         content = function(file){
+                                           # ggsave(filename = file, plot = input$plot3())
+                                           ggsave(catPie,filename = file, scale = 5)
+                                         }, contentType = "image/jpeg")
   
-  output$Hist_Download <-
-    downloadHandler(
-      filename = function() {
-        "AppCatHist.jpeg"
-      } ,
-      content = function(file) {
-        ggsave(catHist, filename = file, scale = 5)
-      },
-      contentType = "image/jpeg"
-    )
+  output$Hist_Download <- downloadHandler(filename = function(){"AppCatHist.jpeg"} ,
+                                          content = function(file){
+                                            ggsave(catHist,filename = file, scale = 5)
+                                          }, contentType = "image/jpeg")
   ### End of Server ####
 }
