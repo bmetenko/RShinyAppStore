@@ -29,7 +29,7 @@ Main_Sidebar <- dashboardSidebar(
   HTML(
     '<style>
     ul.nav.nav-tabs { align: center; width: 100%;
-    #background-image: linear-gradient(-90deg, red, yellow); 
+    #background-image: linear-gradient(-90deg, red, yellow);
     background-color: #f39c12;
     color: white;}
     ul.nav.nav-tabs a {
@@ -39,8 +39,8 @@ Main_Sidebar <- dashboardSidebar(
     li {
     text-align: left;
     }
-    th.dt-center, td.dt-center { 
-    text-align: center; 
+    th.dt-center, td.dt-center {
+    text-align: center;
     }
     # .box-header > div{
     # border-radius: 10px;
@@ -52,7 +52,7 @@ Main_Sidebar <- dashboardSidebar(
   ),
   sidebarMenu(
     menuItem(text = tagList(
-      icon("dashboard", lib = "glyphicon"), 
+      icon("dashboard", lib = "glyphicon"),
       "Data Plots"
     ),
     tabName = "Plots"),
@@ -68,7 +68,8 @@ Main_Sidebar <- dashboardSidebar(
     ), tabName = "Summary")
     
     
-  ))
+  )
+)
 
 #### Plain HTML ####
 
@@ -96,9 +97,9 @@ paragraph_format <- function(str) {
 }
 
 title_format <- function(str, ico) {
-  tags$body(align ="center", tagList(icon(ico,
-                                          lib = "glyphicon"),
-                                     str))
+  tags$body(align = "center", tagList(icon(ico,
+                                           lib = "glyphicon"),
+                                      str))
 }
 
 ### Background CSS maybe?
@@ -115,8 +116,10 @@ Size_Explain <-
   "Data on the app size differences can be used as a proxy for development time involved in publishing and maintaining a specific type of app. Size data can be a rough proxy for how much money is necessary for these actions as well."
 
 #### Data Download ####
-Down_Cat_Pie <-  downloadButton(label = "Download Plot", outputId = "Pie_Download")
-Down_Cat_Hist <-  downloadButton(label = "Download Plot", outputId = "Hist_Download")
+Down_Cat_Pie <-
+  downloadButton(label = "Download Plot", outputId = "Pie_Download")
+Down_Cat_Hist <-
+  downloadButton(label = "Download Plot", outputId = "Hist_Download")
 
 #### Modifications #####
 Box_Clean <- box(
@@ -149,14 +152,16 @@ Box_Mobile <- box(
 )
 
 #### Box with plots ####
-BoxTop_Pie_Plot1 <- tagList(box(
-  plotOutput("plot1"),
-  width = "100%",
-  status = "primary",
-  solidHeader = TRUE,
-  align = "center",
-  title = title_format("App Category Distribution", "cog")
-))
+BoxTop_Pie_Plot1 <- tagList(
+  box(
+    plotOutput("plot1"),
+    width = "100%",
+    status = "primary",
+    solidHeader = TRUE,
+    align = "center",
+    title = title_format("App Category Distribution", "cog")
+  )
+)
 
 
 BoxTop_Hist_Plot2 <- box(
@@ -177,9 +182,11 @@ Box_CatTable <- box(
   width = "100px"
 )
 
-Box_CatPie_Plot3 <- box(plotOutput("plot3"), (Down_Cat_Pie), align = "center")
+Box_CatPie_Plot3 <-
+  box(plotOutput("plot3"), (Down_Cat_Pie), align = "center")
 
-Box_CatHist_Plot4 <- box(plotOutput("plot4"), (Down_Cat_Hist), align = "center")
+Box_CatHist_Plot4 <-
+  box(plotOutput("plot4"), (Down_Cat_Hist), align = "center")
 
 BoxTop_Size <- box(
   title = tagList(icon("export",
@@ -204,7 +211,7 @@ Tab_Info <- tabItem(
   h4(
     "This data set contains more than 7000 Apple iOS mobile application details.
     The data was extracted from the iTunes Search API at the Apple Inc website."
-  ), 
+  ),
   h3("Author Note:"),
   h4(
     "This Shiny application was built as an effort to enhance my skills with R Shiny and R Shiny dashboards, as well as to understand the technology behind continuous integration / continuous deployment (CI/CD) using Travis CI and Github. The current version of the App Store on iOS or iPadOS does not allow for easy interpretation of the categories and properties of apps available and so this application was made in an effort to better portray this information."
@@ -213,22 +220,27 @@ Tab_Info <- tabItem(
 
 
 #### Data Tables ####
-pieTable <- box(id = "tablePie", 
-                tableOutput('pieTable'), 
-                width = "100%", 
-                solidHeader = TRUE,
-                collapsed = TRUE,
-                title = "Data Table",  
-                collapsible = TRUE)
+pieTable <- box(
+  id = "tablePie",
+  tableOutput('pieTable'),
+  width = "100%",
+  solidHeader = TRUE,
+  collapsed = TRUE,
+  title = "Data Table",
+  collapsible = TRUE
+)
 
 
 #### Button Toggle ####
 
 #### Full Table Tab ####
-Tab_CatFull_Table <-  box(dataTableOutput("table2"), width = "100%", align = "center")
+Tab_CatFull_Table <-
+  box(dataTableOutput("table2"),
+      width = "100%",
+      align = "center")
 
 #### UI DECLARATION ####
-ui <- dashboardPage(skin = "black", 
+ui <- dashboardPage(skin = "black",
                     Main_Header,
                     Main_Sidebar,
                     dashboardBody(fluidPage(
@@ -265,19 +277,18 @@ ui <- dashboardPage(skin = "black",
                             ),
                             tabPanel(
                               "Storage",
-                              fluidPage(
-                                BoxTop_Size,
-                                info_Title,
-                                paragraph_format(Size_Explain)
-                              )
+                              fluidPage(BoxTop_Size,
+                                        info_Title,
+                                        paragraph_format(Size_Explain))
                             )
                           ),
                           fluidRow(align = "center",
-                                   column(align = "center",
-                                          ## Maybe implement uioutput switch statement based on 
-                                          ## the current tab you're on.
-                                          pieTable, width = 12)
-                          )
+                                   column(
+                                     align = "center",
+                                     ## Maybe implement uioutput switch statement based on
+                                     ## the current tab you're on.
+                                     pieTable, width = 12
+                                   ))
                         ),
                         Tab_Info,
                         tabItem(

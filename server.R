@@ -36,18 +36,18 @@ server <- function(input, output, session) {
     colnames(CatTally)[2] <- "n"
     
     if (input$naOmit == TRUE) {
-      CatTally <- CatTally[-1, ]
+      CatTally <- CatTally[-1,]
       j <- dim(CatTally)[1]
-      CatTally <- CatTally[-((input$catNum + 1):j), ]
-      CatTally <- CatTally[order(CatTally$n, decreasing = T), ]
+      CatTally <- CatTally[-((input$catNum + 1):j),]
+      CatTally <- CatTally[order(CatTally$n, decreasing = T),]
       CatTally$prime_genre <-
         factor(x = CatTally$prime_genre,
                levels = CatTally$prime_genre)
       
     } else {
       j <- dim(CatTally)[1]
-      CatTally <- CatTally[-((input$catNum + 1):j), ]
-      CatTally <- CatTally[order(CatTally$n, decreasing = T), ]
+      CatTally <- CatTally[-((input$catNum + 1):j),]
+      CatTally <- CatTally[order(CatTally$n, decreasing = T),]
       CatTally$prime_genre <-
         factor(x = CatTally$prime_genre,
                levels = CatTally$prime_genre)
@@ -158,6 +158,10 @@ server <- function(input, output, session) {
       filter(cont_rating != "NA") %>%
       ggplot(aes(cont_rating, n)) +
       geom_col(aes(fill = cont_rating)) +
+      geom_label(aes(label = n), nudge_y = -75) +
+      xlab("Content Age Rating") + ylab("") +
+      labs(fill = "") + theme(legend.position = "bottom",
+                              legend.title.align = 0.5) +
       coord_flip() + scale_fill_brewer(palette = "Blues")
     
     
@@ -183,7 +187,7 @@ server <- function(input, output, session) {
       geom_bar(stat = "identity") + coord_polar("y", start = 0) +
       scale_fill_brewer(palette = "Spectral") + ggtitle(j) + labs(fill = "Rating") +
       blank_theme +
-      theme(axis.title.y = element_blank())
+      theme(axis.title.y = element_blank(), axis.text = element_blank())
     
     catPie <<- g1
     g1
@@ -275,7 +279,7 @@ server <- function(input, output, session) {
   
   ### Table = DataTable Tab ####
   output$table2 <- renderDataTable({
-    df %>% na.omit() %>% select(-c(1, 2, 5,8,10, 15, 17))
+    df %>% na.omit() %>% select(-c(1, 2, 5, 8, 10, 15, 17))
   })
   
   ### Table = pieCheck? ####
@@ -296,20 +300,34 @@ server <- function(input, output, session) {
     
     k$percent <-
       (k$n / sum(k$n)) %>% round(., digits = 2) %>% percent()
+    colnames(k) <- c("Rating", "Count", "Percent")
+    
     k
   })
   
   ### Data Download ####
   
-  output$Pie_Download <- downloadHandler(filename = function(){"AppCatPie.jpeg"},
-                                         content = function(file){
-                                           # ggsave(filename = file, plot = input$plot3())
-                                           ggsave(catPie,filename = file, scale = 5)
-                                         }, contentType = "image/jpeg")
+  output$Pie_Download <-
+    downloadHandler(
+      filename = function() {
+        "AppCatPie.jpeg"
+      },
+      content = function(file) {
+        # ggsave(filename = file, plot = input$plot3())
+        ggsave(catPie, filename = file, scale = 5)
+      },
+      contentType = "image/jpeg"
+    )
   
-  output$Hist_Download <- downloadHandler(filename = function(){"AppCatHist.jpeg"} ,
-                                          content = function(file){
-                                            ggsave(catHist,filename = file, scale = 5)
-                                          }, contentType = "image/jpeg")
+  output$Hist_Download <-
+    downloadHandler(
+      filename = function() {
+        "AppCatHist.jpeg"
+      } ,
+      content = function(file) {
+        ggsave(catHist, filename = file, scale = 5)
+      },
+      contentType = "image/jpeg"
+    )
   ### End of Server ####
 }
