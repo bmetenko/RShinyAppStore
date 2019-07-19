@@ -74,8 +74,9 @@ Main_Sidebar <- dashboardSidebar(
 #### Plain HTML ####
 
 info_Title <- HTML(
-  '<h2 style="color: #3c8dbc;
-  background-image: radial-gradient( white, #f39c12);
+  '<h2 style="color: white;
+  # background-image: radial-gradient( white, #f39c12);
+  background-color: #f39c12;
   text-align: center;
   font-family: Arial;
   border-radius: 25px;">Information</h2>'
@@ -179,14 +180,21 @@ Box_CatTable <- box(
   uiOutput("CatPick"),
   tableOutput("table3"),
   align = "center",
-  width = "100px"
+  width = "100%"
 )
 
 Box_CatPie_Plot3 <-
-  box(plotOutput("plot3"), (Down_Cat_Pie), align = "center")
+  box(plotOutput("plot3"), (Down_Cat_Pie), 
+      title = "Pie Chart",
+      align = "center",
+      collapsible = T)
 
 Box_CatHist_Plot4 <-
-  box(plotOutput("plot4"), (Down_Cat_Hist), align = "center")
+  box(plotOutput("plot4"),
+      (Down_Cat_Hist),
+      title = "Bar Chart",
+      align = "center",
+      collapsible = T)
 
 BoxTop_Size <- box(
   title = tagList(icon("export",
@@ -293,8 +301,9 @@ ui <- dashboardPage(skin = "black",
                         Tab_Info,
                         tabItem(
                           tabName = "CatPlots",
-                          fluidPage(Box_CatTable),
-                          fluidRow(Box_CatPie_Plot3, Box_CatHist_Plot4)
+                          fluidRow(Box_CatTable),
+                          fluidRow(Box_CatPie_Plot3,
+                                   Box_CatHist_Plot4)
                         ),
                         tabItem(tabName = "Table", fluidPage(h2(""),
                                                              Tab_CatFull_Table))
@@ -305,12 +314,9 @@ ui <- dashboardPage(skin = "black",
 
 #### Todo list ####
 # TODO: Sizes_min_max vs category. vs. user rating.
-# TODO: Column (4) main tabs. Rows?
-# TODO: Update person statement in UI.
 # TODO: Scatterplots and ggplotly output.
 # TODO: Clean up code. ShinyWidgets.
 # TODO: Start on Powerpoint or Xaringan.
 # TODO: Unit tests.
 # TODO: Plot Cache.
 # TODO: Write out naming conventions.
-# TODO: Rename columns in output and such.

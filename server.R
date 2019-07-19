@@ -277,10 +277,23 @@ server <- function(input, output, session) {
     g
   })
   
-  ### Table = DataTable Tab ####
+  ### Table = Full DataTable Tab ####
   output$table2 <- renderDataTable({
-    df %>% na.omit() %>% select(-c(1, 2, 5, 8, 10, 15, 17))
-  })
+    df2 <- df %>% na.omit() %>% select(-c(1, 2, 5, 8, 10, 15, 17))
+    colnames(df2) <-  c("App Name", 
+                        "Size (MB)", 
+                        "Price", 
+                        "Rating Count", 
+                        "Rating", 
+                        "Version", 
+                        "Content", 
+                        "Genre", 
+                        "Supported Devices", 
+                        "Language Count")
+    df2
+  }, options = list(searching = FALSE, 
+                    pageLength = 10, 
+                    autoWidth = TRUE))
   
   ### Table = pieCheck? ####
   output$pieTable <- renderTable({
