@@ -158,11 +158,11 @@ server <- function(input, output, session) {
       filter(cont_rating != "NA") %>%
       ggplot(aes(cont_rating, n)) +
       geom_col(aes(fill = cont_rating)) +
-      geom_label(aes(label = n), nudge_y = -75) +
+      geom_label(aes(label = n), hjust = 1) +
       xlab("Content Age Rating") + ylab("") +
       labs(fill = "") + theme(legend.position = "bottom",
                               legend.title.align = 0.5) +
-      coord_flip() + scale_fill_brewer(palette = "Blues")
+      coord_flip() + scale_fill_brewer(palette = "Oranges")
     
     
     catHist <<- g1
@@ -182,10 +182,12 @@ server <- function(input, output, session) {
       ggplot(data = k, aes(
         x = "",
         y = n,
-        fill = as.factor(user_rating)
+        fill = (user_rating)
       )) +
       geom_bar(stat = "identity") + coord_polar("y", start = 0) +
-      scale_fill_brewer(palette = "Spectral") + ggtitle(j) + labs(fill = "Rating") +
+      scale_fill_distiller(direction = 1, palette = "Oranges") + 
+      ggtitle(j) + 
+      labs(fill = "Rating") +
       blank_theme +
       theme(axis.title.y = element_blank(), axis.text = element_blank())
     

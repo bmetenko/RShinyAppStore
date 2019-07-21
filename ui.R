@@ -26,8 +26,15 @@ Main_Header <- dashboardHeader(
 
 #### SIDEBAR ####
 Main_Sidebar <- dashboardSidebar(
+  #### MAIN CSS ####
   HTML(
     '<style>
+    # .content {
+    # background-color: rgba(60,141,188,.5);
+    # }
+    # .skin-black .left-side, .skin-black .main-sidebar, .skin-black .wrapper {
+    # background-color: rgba(60,141,188,.5);
+    # }
     ul.nav.nav-tabs { align: center; width: 100%;
     #background-image: linear-gradient(-90deg, red, yellow);
     background-color: #f39c12;
@@ -50,21 +57,22 @@ Main_Sidebar <- dashboardSidebar(
     # }
     </style>'
   ),
+  #### Sidebar Menu ####
   sidebarMenu(
     menuItem(text = tagList(
       icon("dashboard", lib = "glyphicon"),
-      "Data Plots"
+      " Data Plots"
     ),
     tabName = "Plots"),
     menuItem(
-      text = tagList(icon("tags", lib = "glyphicon"), "Category Specifics"),
+      text = tagList(icon("tags", lib = "glyphicon"), " Category Specifics"),
       tabName = "CatPlots"
     ),
     menuItem(text = tagList(
-      icon("list-alt", lib = "glyphicon"), "Data Table"
+      icon("list-alt", lib = "glyphicon"), " Data Table"
     ), tabName = "Table"),
     menuItem(text = tagList(
-      icon("align-left", lib = "glyphicon"), "Data Summary"
+      icon("align-left", lib = "glyphicon"), " Data Summary"
     ), tabName = "Summary")
     
     
@@ -74,7 +82,7 @@ Main_Sidebar <- dashboardSidebar(
 #### Plain HTML ####
 
 info_Title <- HTML(
-  '<h2 style="color: white;
+  '<h2 style="color: #3c8dbc;
   # background-image: radial-gradient( white, #f39c12);
   background-color: #f39c12;
   text-align: center;
@@ -175,6 +183,8 @@ BoxTop_Hist_Plot2 <- box(
 
 Box_CatTable <- box(
   solidHeader = T,
+  collapsed = F,
+  collapsible = T,
   title = title_format("Categorical Analysis", "tasks"),
   status = "primary",
   uiOutput("CatPick"),
@@ -184,17 +194,26 @@ Box_CatTable <- box(
 )
 
 Box_CatPie_Plot3 <-
-  box(plotOutput("plot3"), (Down_Cat_Pie), 
-      title = "Pie Chart",
-      align = "center",
-      collapsible = T)
+  box(
+    plotOutput("plot3"),
+    (Down_Cat_Pie),
+    title = "Pie Chart",
+    align = "center",
+    collapsible = T,
+    status = "primary",
+    solidHeader = T
+  )
 
 Box_CatHist_Plot4 <-
-  box(plotOutput("plot4"),
-      (Down_Cat_Hist),
-      title = "Bar Chart",
-      align = "center",
-      collapsible = T)
+  box(
+    plotOutput("plot4"),
+    (Down_Cat_Hist),
+    title = "Bar Chart",
+    align = "center",
+    collapsible = T,
+    status = "primary",
+    solidHeader = T
+  )
 
 BoxTop_Size <- box(
   title = tagList(icon("export",
@@ -305,8 +324,9 @@ ui <- dashboardPage(skin = "black",
                           fluidRow(Box_CatPie_Plot3,
                                    Box_CatHist_Plot4)
                         ),
-                        tabItem(tabName = "Table", fluidPage(h2(""),
-                                                             Tab_CatFull_Table))
+                        tabItem(tabName = "Table", 
+                                fluidPage(h2(""),
+                                          Tab_CatFull_Table))
                       )
                     )))
 
