@@ -43,6 +43,23 @@ Main_Sidebar <- dashboardSidebar(
     color: white;
     font-weight: bold;
     }
+    .box-header .box-title {
+    font-weight: bold;
+    }
+    # .scrolling-wrapper-flexbox {
+    # display: flex;
+    # flex-wrap: nowrap;
+    # overflow-x: auto;
+    # 
+    # .col-sm-4 {
+    # flex: 0 0 auto;
+    #   }
+    }
+    # .bg-aqua {
+    # width: 300px;
+    # height: 300px;
+    # display: inline-block;
+    # }
     li {
     text-align: left;
     }
@@ -266,6 +283,17 @@ Tab_CatFull_Table <-
       width = "100%",
       align = "center")
 
+#### KPI Container ####
+# 
+# KPI_Container <- tags$div(id = "KPIs", class = "scrolling-wrapper-flexbox",
+#                           valueBox(42,"h"),
+#                           valueBox(42,"h"),
+#                           valueBox(42,"h"),
+#                           valueBox(42,"h"))
+
+# Attempt to make scrollable
+
+
 #### UI DECLARATION ####
 ui <- dashboardPage(skin = "black",
                     Main_Header,
@@ -316,6 +344,8 @@ ui <- dashboardPage(skin = "black",
                                      ## the current tab you're on.
                                      pieTable, width = 12
                                    ))
+                          # ,
+                          # KPI_Container
                         ),
                         Tab_Info,
                         tabItem(
