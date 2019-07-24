@@ -9,7 +9,7 @@ Main_Header <- dashboardHeader(
     badgeStatus = "success",
     taskItem(value = 90, color = "green",
              "Git Re-commit"),
-    taskItem(value = 75, color = "blue",
+    taskItem(value = 80, color = "yellow",
              "Server deployment")
   ),
   dropdownMenu(
@@ -46,19 +46,21 @@ Main_Sidebar <- dashboardSidebar(
     .box-header .box-title {
     font-weight: bold;
     }
-    # .scrolling-wrapper-flexbox {
-    # display: flex;
-    # flex-wrap: nowrap;
+    # .horizontal-scroll-wrapper {
+    # width: 100vw;
+    # height: 10vh;
+    # overflow-y: auto;
     # overflow-x: auto;
-    # 
-    # .col-sm-4 {
-    # flex: 0 0 auto;
-    #   }
-    }
-    # .bg-aqua {
-    # width: 300px;
-    # height: 300px;
+    # transform: rotate(-90deg) translateY(-10vh);
+    # transform-origin: right top;
+    # }
+    # .horizontal-scroll-wrapper > div {
     # display: inline-block;
+    # width: 100px;
+    # height: 100px;
+    # transform: rotate(90deg);
+    # transform-origin: right top;
+    # position: relative;
     # }
     li {
     text-align: left;
@@ -292,6 +294,18 @@ Tab_CatFull_Table <-
 #                           valueBox(42,"h"))
 
 # Attempt to make scrollable
+
+# KPI_Container <- HTML('
+#                       <div class="horizontal-scroll-wrapper squares">
+#                       <div>item 1</div>
+#                       <div>item 2</div>
+#                       <div>item 3</div>
+#                       <div>item 4</div>
+#                       <div>item 5</div>
+#                       <div>item 6</div>
+#                       <div>item 7</div>
+#                       <div>item 8</div>
+#                       </div>')
 
 
 #### UI DECLARATION ####

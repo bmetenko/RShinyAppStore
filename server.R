@@ -143,7 +143,7 @@ server <- function(input, output, session) {
   })
   
   ### Render = Hist - Ratings####
-  output$plot4 <- renderPlot({
+  output$plot4 <- renderCachedPlot({
     validate(need(input$catChoice != "", "Loading..."))
     
     j <- input$catChoice
@@ -167,10 +167,10 @@ server <- function(input, output, session) {
     
     catHist <<- g1
     g1
-  })
+  }, cacheKeyExpr = {input$catChoice})
   
   ### Render = Pie - Rating ####
-  output$plot3 <- renderPlot({
+  output$plot3 <- renderCachedPlot({
     validate(need(input$catChoice != "", "Loading..."))
     j <- input$catChoice
     # print(j)
@@ -193,7 +193,7 @@ server <- function(input, output, session) {
     
     catPie <<- g1
     g1
-  })
+  }, cacheKeyExpr = {input$catChoice})
   ### Render = Size ####
   output$plot5 <- renderPlot({
     ### add validate.
