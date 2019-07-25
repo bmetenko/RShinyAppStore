@@ -29,12 +29,6 @@ Main_Sidebar <- dashboardSidebar(
   #### MAIN CSS ####
   HTML(
     '<style>
-    # .content {
-    # background-color: rgba(60,141,188,.5);
-    # }
-    # .skin-black .left-side, .skin-black .main-sidebar, .skin-black .wrapper {
-    # background-color: rgba(60,141,188,.5);
-    # }
     ul.nav.nav-tabs { align: center; width: 100%;
     #background-image: linear-gradient(-90deg, red, yellow);
     background-color: #f39c12;
@@ -43,37 +37,29 @@ Main_Sidebar <- dashboardSidebar(
     color: white;
     font-weight: bold;
     }
+    ul.nav.nav-tabs a:hover {
+    color: black;
+    }
     .box-header .box-title {
     font-weight: bold;
     }
-    # .horizontal-scroll-wrapper {
-    # width: 100vw;
-    # height: 10vh;
-    # overflow-y: auto;
-    # overflow-x: auto;
-    # transform: rotate(-90deg) translateY(-10vh);
-    # transform-origin: right top;
-    # }
-    # .horizontal-scroll-wrapper > div {
-    # display: inline-block;
-    # width: 100px;
-    # height: 100px;
-    # transform: rotate(90deg);
-    # transform-origin: right top;
-    # position: relative;
-    # }
+    .box-header .box-title:hover {
+    color: black;
+    }
+    label:hover {
+    color: black;
+    font-weight: bold;
+    }
+    tr td:hover{
+    font-weight: bold;
+    color: darkblue;
+    }
     li {
     text-align: left;
     }
     th.dt-center, td.dt-center {
     text-align: center;
     }
-    # .box-header > div{
-    # border-radius: 10px;
-    # color: white;
-    # font-weight: bold;
-    # background-color: #3c8dbc;
-    # }
     </style>'
   ),
   #### Sidebar Menu ####
@@ -102,7 +88,6 @@ Main_Sidebar <- dashboardSidebar(
 
 info_Title <- HTML(
   '<h2 style="color: #3c8dbc;
-  # background-image: radial-gradient( white, #f39c12);
   background-color: #f39c12;
   text-align: center;
   font-family: Arial;
