@@ -38,7 +38,7 @@ Main_Sidebar <- dashboardSidebar(
     font-weight: bold;
     }
     ul.nav.nav-tabs a:hover {
-    color: black;
+    color: #3c8dbc;
     }
     .box-header .box-title {
     font-weight: bold;
@@ -52,7 +52,22 @@ Main_Sidebar <- dashboardSidebar(
     }
     tr td:hover{
     font-weight: bold;
-    color: darkblue;
+    color: blue;
+    }
+    header.main-header .logo:hover{
+    color: black;
+    font-weight: bold;
+    background-color: #d5d5d5;
+    letter-spacing: .05em;
+    text-shadow: 
+      4px 4px 0px #d5d5d5, 
+      7px 7px 0px rgba(0, 0, 0, 0.2);
+    }
+    .skin-black .sidebar-menu>li.active>a:hover {
+    color: #3c8dbc;
+    }
+    .skin-black .sidebar-menu>li>a:hover {
+    color: #f39c12;
     }
     li {
     text-align: left;
