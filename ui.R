@@ -84,17 +84,20 @@ Main_Sidebar <- dashboardSidebar(
     
     .skin-black .left-side, .skin-black .main-sidebar, .skin-black .wrapper {
     color: black;
+    }
+
+    .skin-black .sidebar a {
+    color: white;
+    } 
+
+    div.content-wrapper {
+    background-color: black;
     background: linear-gradient(45deg,  orange, #f68b4a, white, #23A6D5, #23D5AB);
     background-size: 400% 400%;
     -webkit-animation: Gradient 15s ease infinite;
     -moz-animation: Gradient 15s ease infinite;
     animation: Gradient 15s ease infinite;
-    # border-style: solid;
     }
-
-    .skin-black .sidebar a {
-    color: black;
-    }    
 
     @-webkit-keyframes Gradient {
     0% {
