@@ -160,6 +160,7 @@ server <- function(input, output, session) {
       geom_col(aes(fill = cont_rating)) +
       geom_label(aes(label = n), hjust = 1) +
       xlab("Content Age Rating") + ylab("") +
+      theme_light() +
       labs(fill = "") + theme(legend.position = "bottom",
                               legend.title.align = 0.5) +
       coord_flip() + scale_fill_brewer(palette = "Oranges")
@@ -223,12 +224,13 @@ server <- function(input, output, session) {
         stat = "identity"
       ) +
       scale_fill_manual(values = mycolors) +
+      theme_light() +
       theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
       labs(y = "App Size (MB)", x = "",  fill = "App Genre")  +
       {
         if (input$mobileCheck)
           theme(legend.position = "none")
-      }
+      } 
   })
   ### Render = UI = Legend_Mobile ####
   

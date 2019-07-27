@@ -75,6 +75,50 @@ Main_Sidebar <- dashboardSidebar(
     th.dt-center, td.dt-center {
     text-align: center;
     }
+    # .skin-black .main-header>.logo {
+    # background-color: #fff;
+    # color: #333;
+    # border-bottom: 2px solid black;
+    # border-right: 2px solid #eee;
+    # }
+    
+    .skin-black .left-side, .skin-black .main-sidebar, .skin-black .wrapper {
+    color: black;
+    background: linear-gradient(45deg,  orange, #f68b4a, white, #23A6D5, #23D5AB);
+    background-size: 400% 400%;
+    -webkit-animation: Gradient 15s ease infinite;
+    -moz-animation: Gradient 15s ease infinite;
+    animation: Gradient 15s ease infinite;
+    # border-style: solid;
+    }
+
+    .skin-black .sidebar a {
+    color: black;
+    }    
+
+    @-webkit-keyframes Gradient {
+    0% {
+    background-position: 0% 50%
+    }
+    50% {
+    background-position: 100% 50%
+    }
+    100% {
+    background-position: 0% 50%
+    }
+    }
+    
+    @-moz-keyframes Gradient {
+    0% {
+    background-position: 0% 50%
+    }
+    50% {
+    background-position: 100% 50%
+    }
+    100% {
+    background-position: 0% 50%
+    }
+    }
     </style>'
   ),
   #### Sidebar Menu ####
