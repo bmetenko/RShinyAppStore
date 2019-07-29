@@ -122,6 +122,20 @@ Main_Sidebar <- dashboardSidebar(
     background-position: 0% 50%
     }
     }
+
+
+    div>.small-box {
+    border-radius: 20px;
+    border-style: solid;
+    }
+    
+    div>.bg-aqua {
+    background-color: #3c8dbc!important;
+    }
+    
+    div>.bg-aqua h3,p {
+    color: black;
+    }
     </style>'
   ),
   #### Sidebar Menu ####
@@ -176,6 +190,8 @@ title_format <- function(str, ico) {
                                            lib = "glyphicon"),
                                       str))
 }
+
+
 
 ### Background CSS maybe?
 
@@ -404,7 +420,12 @@ ui <- dashboardPage(skin = "black",
                                      ## Maybe implement uioutput switch statement based on
                                      ## the current tab you're on.
                                      pieTable, width = 12
-                                   ))
+                                   )), 
+                          valueBox(value = 299.99, width = 4,
+                                   subtitle = "Most expensive app cost (USD)"),
+                          valueBox(value = 0.99, width = 4,
+                                   subtitle = "Most common app cost (USD)"), width = 4,
+                          valueBox(value = 7907, "Labeled apps in dataset")
                           # ,
                           # KPI_Container
                         ),
