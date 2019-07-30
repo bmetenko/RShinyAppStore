@@ -60,8 +60,8 @@ Main_Sidebar <- dashboardSidebar(
     background-color: #d5d5d5;
     letter-spacing: .05em;
     text-shadow: 
-      4px 4px 0px #d5d5d5, 
-      7px 7px 0px rgba(0, 0, 0, 0.2);
+    4px 4px 0px #d5d5d5, 
+    7px 7px 0px rgba(0, 0, 0, 0.2);
     }
     .skin-black .sidebar-menu>li.active>a:hover {
     color: #3c8dbc;
@@ -85,11 +85,11 @@ Main_Sidebar <- dashboardSidebar(
     .skin-black .left-side, .skin-black .main-sidebar, .skin-black .wrapper {
     color: black;
     }
-
+    
     .skin-black .sidebar a {
     color: white;
     } 
-
+    
     div.content-wrapper {
     background-color: black;
     background: linear-gradient(45deg,  orange, #f68b4a, white, #23A6D5, #23D5AB);
@@ -98,7 +98,7 @@ Main_Sidebar <- dashboardSidebar(
     -moz-animation: Gradient 15s ease infinite;
     animation: Gradient 15s ease infinite;
     }
-
+    
     @-webkit-keyframes Gradient {
     0% {
     background-position: 0% 50%
@@ -122,13 +122,19 @@ Main_Sidebar <- dashboardSidebar(
     background-position: 0% 50%
     }
     }
-
-
+    
+    
     div>.small-box {
     border-radius: 20px;
     border-style: solid;
+    height: 120px;
     }
     
+    div>.small-box:hover {
+    border-radius: 40px;
+    border-color: black;
+    }
+
     div>.bg-aqua {
     background-color: #3c8dbc!important;
     }
@@ -422,10 +428,14 @@ ui <- dashboardPage(skin = "black",
                                      pieTable, width = 12
                                    )), 
                           valueBox(value = 299.99, width = 4,
+                                   icon = icon("usd", lib = "glyphicon"),
                                    subtitle = "Most expensive app cost (USD)"),
                           valueBox(value = 0.99, width = 4,
-                                   subtitle = "Most common app cost (USD)"), width = 4,
-                          valueBox(value = 7907, "Labeled apps in dataset")
+                                   icon = icon("usd", lib = "glyphicon"),
+                                   subtitle = "Most likey app cost (USD)"), width = 4,
+                          valueBox(value = 7907, 
+                                   icon = icon("barcode", lib = "glyphicon"),
+                                   "Labeled apps in dataset")
                           # ,
                           # KPI_Container
                         ),
