@@ -7,10 +7,14 @@ Main_Header <- dashboardHeader(
   dropdownMenu(
     type = "tasks",
     badgeStatus = "success",
-    taskItem(value = 90, color = "green",
+    taskItem(value = 50, color = "yellow",
+             "Code Refactoring"),
+    taskItem(value = 90, color = "orange",
              "Git Re-commit"),
-    taskItem(value = 80, color = "yellow",
-             "Server deployment")
+    taskItem(value = 95, color = "green",
+             "Server deployment"),
+    taskItem(value = 100, color = "blue",
+             "Animated Gradient Background")
   ),
   dropdownMenu(
     type = "messages",
