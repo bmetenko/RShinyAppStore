@@ -13,8 +13,11 @@ Main_Header <- dashboardHeader(
              "Git Re-commit"),
     taskItem(value = 95, color = "green",
              "Server deployment"),
-    taskItem(value = 100, color = "blue",
-             "Animated Gradient Background")
+    taskItem(
+      value = 100,
+      color = "blue",
+      "Animated Gradient Background"
+    )
   ),
   dropdownMenu(
     type = "messages",
@@ -31,42 +34,60 @@ Main_Header <- dashboardHeader(
 #### SIDEBAR ####
 Main_Sidebar <- dashboardSidebar(
   #### MAIN CSS ####
+  # Check Tailwind CSS later: changing styles specified.
+  # HTML('<link
+  # href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+  # rel="stylesheet">
+  #      '),
   HTML(
     '<style>
+    /* Navigation Bar */
     ul.nav.nav-tabs { align: center; width: 100%;
-    #background-image: linear-gradient(-90deg, red, yellow);
     background-color: #f39c12;
-    color: white;}
+    color: white;
+    }
+    
     ul.nav.nav-tabs a {
     color: white;
     font-weight: bold;
     }
+    
     ul.nav.nav-tabs a:hover {
     color: #3c8dbc;
     }
+    
+    /* Header */
     .box-header .box-title {
     font-weight: bold;
     }
     .box-header .box-title:hover {
     color: black;
     }
+    
+    /* Code modification inputs */
     label:hover {
     color: black;
     font-weight: bold;
     }
+    
+    /* Table hover changes */
     tr td:hover{
     font-weight: bold;
     color: blue;
     }
+    
+    /* Main app header */
     header.main-header .logo:hover{
     color: black;
     font-weight: bold;
     background-color: #d5d5d5;
     letter-spacing: .05em;
-    text-shadow: 
-    4px 4px 0px #d5d5d5, 
+    text-shadow:
+    4px 4px 0px #d5d5d5,
     7px 7px 0px rgba(0, 0, 0, 0.2);
     }
+    
+    /* Sidebar properties */
     .skin-black .sidebar-menu>li.active>a:hover {
     color: #3c8dbc;
     }
@@ -76,24 +97,26 @@ Main_Sidebar <- dashboardSidebar(
     li {
     text-align: left;
     }
+    
+    /* Check function specifics ? */
     th.dt-center, td.dt-center {
     text-align: center;
     }
-    # .skin-black .main-header>.logo {
-    # background-color: #fff;
-    # color: #333;
-    # border-bottom: 2px solid black;
-    # border-right: 2px solid #eee;
-    # }
     
+    /* Sidebar? and text */
     .skin-black .left-side, .skin-black .main-sidebar, .skin-black .wrapper {
     color: black;
     }
     
     .skin-black .sidebar a {
     color: white;
-    } 
+    }
     
+    /*
+    =======================================
+    CSS wrapper for the gradient background
+    =======================================
+    */
     div.content-wrapper {
     background-color: black;
     background: linear-gradient(45deg,  orange, #f68b4a, white, #23A6D5, #23D5AB);
@@ -127,7 +150,7 @@ Main_Sidebar <- dashboardSidebar(
     }
     }
     
-    
+    /* ValueBoxes */
     div>.small-box {
     border-radius: 20px;
     border-style: solid;
@@ -138,7 +161,7 @@ Main_Sidebar <- dashboardSidebar(
     border-radius: 40px;
     border-color: black;
     }
-
+    
     div>.bg-aqua {
     background-color: #3c8dbc!important;
     }
@@ -148,6 +171,7 @@ Main_Sidebar <- dashboardSidebar(
     }
     </style>'
   ),
+  
   #### Sidebar Menu ####
   sidebarMenu(
     menuItem(text = tagList(
@@ -227,10 +251,14 @@ Box_Clean <- box(
   width = "50%",
   height = "100px",
   align = "center",
-  uiOutput(outputId = "input1"),
+  uiOutput(outputId = "input1",
+           # For Tailwind CSS Styling > CheckboxOutput
+           class = ""),
   solidHeader = T,
   title = "Clean?",
-  status = "warning"
+  status = "warning",
+  # For Tailwind CSS styling > BOX
+  class = ""
 )
 
 Box_Category <- box(
@@ -359,27 +387,27 @@ Tab_CatFull_Table <-
       align = "center")
 
 #### KPI Container ####
-# 
-# KPI_Container <- tags$div(id = "KPIs", class = "scrolling-wrapper-flexbox",
-#                           valueBox(42,"h"),
-#                           valueBox(42,"h"),
-#                           valueBox(42,"h"),
-#                           valueBox(42,"h"))
 
-# Attempt to make scrollable
-
-# KPI_Container <- HTML('
-#                       <div class="horizontal-scroll-wrapper squares">
-#                       <div>item 1</div>
-#                       <div>item 2</div>
-#                       <div>item 3</div>
-#                       <div>item 4</div>
-#                       <div>item 5</div>
-#                       <div>item 6</div>
-#                       <div>item 7</div>
-#                       <div>item 8</div>
-#                       </div>')
-
+KPI_Container <- tagList(
+  valueBox(
+    value = 299.99,
+    width = 4,
+    icon = icon("usd", lib = "glyphicon"),
+    subtitle = "Most expensive app cost (USD)"
+  ),
+  valueBox(
+    value = 0.99,
+    width = 4,
+    icon = icon("usd", lib = "glyphicon"),
+    subtitle = "Most likey app cost (USD)"
+  ),
+  valueBox(
+    value = 7907,
+    width = 4,
+    icon = icon("barcode", lib = "glyphicon"),
+    "Labeled apps in dataset"
+  )
+)
 
 #### UI DECLARATION ####
 ui <- dashboardPage(skin = "black",
@@ -430,18 +458,8 @@ ui <- dashboardPage(skin = "black",
                                      ## Maybe implement uioutput switch statement based on
                                      ## the current tab you're on.
                                      pieTable, width = 12
-                                   )), 
-                          valueBox(value = 299.99, width = 4,
-                                   icon = icon("usd", lib = "glyphicon"),
-                                   subtitle = "Most expensive app cost (USD)"),
-                          valueBox(value = 0.99, width = 4,
-                                   icon = icon("usd", lib = "glyphicon"),
-                                   subtitle = "Most likey app cost (USD)"), width = 4,
-                          valueBox(value = 7907, 
-                                   icon = icon("barcode", lib = "glyphicon"),
-                                   "Labeled apps in dataset")
-                          # ,
-                          # KPI_Container
+                                   )),
+                          KPI_Container
                         ),
                         Tab_Info,
                         tabItem(
@@ -450,7 +468,7 @@ ui <- dashboardPage(skin = "black",
                           fluidRow(Box_CatPie_Plot3,
                                    Box_CatHist_Plot4)
                         ),
-                        tabItem(tabName = "Table", 
+                        tabItem(tabName = "Table",
                                 fluidPage(h2(""),
                                           Tab_CatFull_Table))
                       )
@@ -466,3 +484,6 @@ ui <- dashboardPage(skin = "black",
 # TODO: Unit tests.
 # TODO: Plot Cache.
 # TODO: Write out naming conventions.
+# TODO: Comment everywhere. Check if comments here and on ubuntu/master are the same.
+# TODO: CSS comments multiline via '/* ========= text ========= */' and
+##      table of contents?
