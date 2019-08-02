@@ -1,5 +1,6 @@
 library(shiny)
 library(shinydashboard)
+library(rpivotTable)
 
 #### HEADER ####
 Main_Header <- dashboardHeader(
@@ -478,7 +479,7 @@ ui <- dashboardPage(skin = "black",
                         fluidRow(box(collapsible = T, 
                                      collapsed = T, 
                                      width = "100%",
-                                     title = "Pivot Table (scrollable)",
+                                     title = "Pivot Table (x/y scrollable)",
                                      # Perhaps add warning here, or check if mobile and not render.
                           rpivotTableOutput("pivotC", width = "100%"))
                         ))
