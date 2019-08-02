@@ -7,6 +7,7 @@ library(forcats)
 library(ggpubr)
 library(sqldf)
 library(RColorBrewer)
+library(rpivotTable)
 
 # source("package_check.R")
 # devtools::install_github("ramamet/applestoreR")
@@ -320,6 +321,25 @@ server <- function(input, output, session) {
     colnames(k) <- c("Rating", "Count", "Percent")
     
     k
+  })
+  
+  ### Table = Pivot Table Category ####
+  
+  output$pivotC <- renderRpivotTable({
+    df2 <- df %>% na.omit() %>% select(-c(1, 2, 5, 8, 10, 15, 17))
+    colnames(df2) <-  c("App Name", 
+                        "Size (MB)", 
+                        "Price", 
+                        "Rating Count", 
+                        "Rating", 
+                        "Version", 
+                        "Content", 
+                        "Genre", 
+                        "Supported Devices", 
+                        "Language Count")
+    df2
+    
+    rpivotTable(df2, height = "400px", width = "100%", rows = "Content", cols = "Genre")
   })
   
   ### Data Download ####

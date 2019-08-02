@@ -5,7 +5,7 @@ required_pkg = c("shiny", "ggplot2",
                  "sqldf", "RColorBrewer", 
                  "ggpubr",
                  "scales", "cowplot",
-                 "tidyverse")
+                 "tidyverse", "rpivotTable")
 
 packages_to_add = required_pkg[!(required_pkg %in% installed.packages()[, 1])]
 

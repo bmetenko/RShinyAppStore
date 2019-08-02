@@ -169,6 +169,10 @@ Main_Sidebar <- dashboardSidebar(
     div>.bg-aqua h3,p {
     color: black;
     }
+    
+    .rpivotTable {
+    overflow-x: scroll; 
+    }
     </style>'
   ),
   
@@ -470,7 +474,14 @@ ui <- dashboardPage(skin = "black",
                         ),
                         tabItem(tabName = "Table",
                                 fluidPage(h2(""),
-                                          Tab_CatFull_Table))
+                                          Tab_CatFull_Table),
+                        fluidRow(box(collapsible = T, 
+                                     collapsed = T, 
+                                     width = "100%",
+                                     title = "Pivot Table (scrollable)",
+                                     # Perhaps add warning here, or check if mobile and not render.
+                          rpivotTableOutput("pivotC", width = "100%"))
+                        ))
                       )
                     )))
 
