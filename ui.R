@@ -156,11 +156,19 @@ Main_Sidebar <- dashboardSidebar(
     border-radius: 20px;
     border-style: solid;
     height: 120px;
+    text-align: center;
     }
     
     div>.small-box:hover {
     border-radius: 40px;
     border-color: black;
+    }
+    
+    div>.small-box p:hover {
+    font-weight: bold!important;
+    color: white!important;
+    text-transform: capitalize;
+    letter-spacing: 2px;
     }
     
     div>.bg-aqua {
