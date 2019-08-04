@@ -169,6 +169,7 @@ Main_Sidebar <- dashboardSidebar(
     color: white!important;
     text-transform: capitalize;
     letter-spacing: 2px;
+    font-family: Arial, Helvetica, serif;
     }
     
     div>.bg-aqua {
@@ -363,8 +364,12 @@ BoxTop_Pie_Legend <- uiOutput("Legend_Pie_Mobile", width = "auto")
 #### Information Tab ####
 Tab_Info <- tabItem(
   tabName = "Summary",
+  HTML('<a href= "https://github.com/bmetenko/RShinyAppStore">
+       <img src = "https://travis-ci.org/bmetenko/RShinyAppStore.svg?branch=master">
+       </a>'),
   h2("App Store Data from 2017"),
   h3("Data source: "),
+
   h6(
     "https://www.kaggle.com/ramamet4/app-store-apple-data-set-10k-apps"
   ),
