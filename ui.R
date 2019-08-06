@@ -205,7 +205,15 @@ Main_Sidebar <- dashboardSidebar(
     ), tabName = "Table"),
     menuItem(text = tagList(
       icon("align-left", lib = "glyphicon"), " Data Summary"
-    ), tabName = "Summary")
+    ), tabName = "Summary"),
+    tags$img(
+      src = "hex2.svg", 
+      align = "center",
+      style = "display: block; 
+      margin-left: auto; 
+      margin-right: auto;",
+      width = "75%"
+    )
     
     
   )
@@ -338,7 +346,8 @@ Box_CatPie_Plot3 <-
     align = "center",
     collapsible = T,
     status = "primary",
-    solidHeader = T
+    solidHeader = T,
+    width = "50%"
   )
 
 Box_CatHist_Plot4 <-
@@ -349,7 +358,8 @@ Box_CatHist_Plot4 <-
     align = "center",
     collapsible = T,
     status = "primary",
-    solidHeader = T
+    solidHeader = T,
+    width = "50%"
   )
 
 BoxTop_Size <- box(
