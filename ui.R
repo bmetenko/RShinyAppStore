@@ -72,7 +72,7 @@ Main_Sidebar <- dashboardSidebar(
     }
     
     /* Table hover changes */
-    tr td:hover{
+    .table tbody>tr:hover{
     font-weight: bold;
     color: blue;
     }
@@ -182,7 +182,10 @@ Main_Sidebar <- dashboardSidebar(
     
     .rpivotTable {
     overflow-x: scroll; 
+    overflow-y: scroll;
+    text-decoration: none;
     }
+    
     </style>'
   ),
   
@@ -487,8 +490,9 @@ ui <- dashboardPage(skin = "black",
                                    Box_CatHist_Plot4)
                         ),
                         tabItem(tabName = "Table",
-                                fluidPage(h2(""),
-                                          Tab_CatFull_Table),
+                                fluidRow(box(title = "Full Data Table", width = "100%",collapsible = T,
+                                              collapsed = FALSE, Tab_CatFull_Table, id = "full_data_table"
+                                )),
                         fluidRow(box(collapsible = T, 
                                      collapsed = T, 
                                      width = "100%",
