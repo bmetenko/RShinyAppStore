@@ -43,7 +43,8 @@ Main_Sidebar <- dashboardSidebar(
   HTML(
     '<style>
     /* Navigation Bar */
-    ul.nav.nav-tabs { align: center; width: 100%;
+    ul.nav.nav-tabs { 
+    align: center; width: 100%;
     background-color: #f39c12;
     color: white;
     }
@@ -79,13 +80,29 @@ Main_Sidebar <- dashboardSidebar(
     
     /* Main app header */
     header.main-header .logo:hover{
-    color: black;
+    color: white;
     font-weight: bold;
     background-color: #d5d5d5;
     letter-spacing: .05em;
     text-shadow:
-    4px 4px 0px #d5d5d5,
-    7px 7px 0px rgba(0, 0, 0, 0.2);
+    4px 4px 0px rgba(255, 255, 255, 0.1),
+    6px 6px 0px #000;
+
+    }
+    
+    /* Text properties */
+    .info-title {
+    color: #3c8dbc;
+    background-color: #f39c12;
+    text-align: center;
+    font-family: Arial;
+    border-radius: 25px;
+    }
+    
+    .info-title:hover {
+    color: black;
+    font-weight: bold;
+    border-radius: 35px;
     }
     
     /* Sidebar properties */
@@ -222,11 +239,8 @@ Main_Sidebar <- dashboardSidebar(
 #### Plain HTML ####
 
 info_Title <- HTML(
-  '<h2 style="color: #3c8dbc;
-  background-color: #f39c12;
-  text-align: center;
-  font-family: Arial;
-  border-radius: 25px;">Information</h2>'
+  '<h2 
+  class = "info-title">Information</h2>'
 )
 
 paragraph_format <- function(str) {
