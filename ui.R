@@ -203,6 +203,23 @@ Main_Sidebar <- dashboardSidebar(
     text-decoration: none;
     }
     
+    .hex-svg {
+    padding: 1.5em;
+    }
+    
+    .hex-svg:hover {
+    animation: rotation 6s infinite ease;
+    }
+    
+    @keyframes rotation {
+    from {
+    transform: rotate(0deg):
+    }
+    to {
+    transform: rotate(359deg);
+    }
+    }
+    
     </style>'
   ),
   
@@ -224,6 +241,7 @@ Main_Sidebar <- dashboardSidebar(
       icon("align-left", lib = "glyphicon"), " Data Summary"
     ), tabName = "Summary"),
     tags$img(
+      class = "hex-svg",
       src = "hex2.svg", 
       align = "center",
       style = "display: block; 
