@@ -35,194 +35,9 @@ Main_Header <- dashboardHeader(
 #### SIDEBAR ####
 Main_Sidebar <- dashboardSidebar(
   #### MAIN CSS ####
-  # Check Tailwind CSS later: changing styles specified.
-  # HTML('<link
-  # href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
-  # rel="stylesheet">
-  #      '),
-  HTML(
-    '<style>
-    /* Navigation Bar */
-    ul.nav.nav-tabs { 
-    align: center; width: 100%;
-    background-color: #f39c12;
-    color: white;
-    }
-    
-    ul.nav.nav-tabs a {
-    color: white;
-    font-weight: bold;
-    }
-    
-    ul.nav.nav-tabs a:hover {
-    color: #3c8dbc;
-    }
-    
-    /* Header */
-    .box-header .box-title {
-    font-weight: bold;
-    }
-    .box-header .box-title:hover {
-    color: black;
-    }
-    
-    /* Code modification inputs */
-    label:hover {
-    color: black;
-    font-weight: bold;
-    }
-    
-    /* Table hover changes */
-    .table tbody>tr:hover{
-    font-weight: bold;
-    color: blue;
-    }
-    
-    /* Main app header */
-    header.main-header .logo:hover{
-    color: white;
-    font-weight: bold;
-    background-color: #d5d5d5;
-    letter-spacing: .05em;
-    text-shadow:
-    4px 4px 0px rgba(255, 255, 255, 0.1),
-    6px 6px 0px #000;
-
-    }
-    
-    /* Text properties */
-    .info-title {
-    color: #3c8dbc;
-    background-color: #f39c12;
-    text-align: center;
-    font-family: Arial;
-    border-radius: 25px;
-    }
-    
-    .info-title:hover {
-    color: black;
-    font-weight: bold;
-    border-radius: 35px;
-    }
-    
-    /* Sidebar properties */
-    .skin-black .sidebar-menu>li.active>a:hover {
-    color: #3c8dbc;
-    }
-    .skin-black .sidebar-menu>li>a:hover {
-    color: #f39c12;
-    }
-    li {
-    text-align: left;
-    }
-    
-    /* Check function specifics ? */
-    th.dt-center, td.dt-center {
-    text-align: center;
-    }
-    
-    /* Sidebar? and text */
-    .skin-black .left-side, .skin-black .main-sidebar, .skin-black .wrapper {
-    color: black;
-    }
-    
-    .skin-black .sidebar a {
-    color: white;
-    }
-    
-    /*
-    =======================================
-    CSS wrapper for the gradient background
-    =======================================
-    */
-    div.content-wrapper {
-    background-color: black;
-    background: linear-gradient(45deg,  orange, #f68b4a, white, #23A6D5, #23D5AB);
-    background-size: 400% 400%;
-    -webkit-animation: Gradient 15s ease infinite;
-    -moz-animation: Gradient 15s ease infinite;
-    animation: Gradient 15s ease infinite;
-    }
-    
-    @-webkit-keyframes Gradient {
-    0% {
-    background-position: 0% 50%
-    }
-    50% {
-    background-position: 100% 50%
-    }
-    100% {
-    background-position: 0% 50%
-    }
-    }
-    
-    @-moz-keyframes Gradient {
-    0% {
-    background-position: 0% 50%
-    }
-    50% {
-    background-position: 100% 50%
-    }
-    100% {
-    background-position: 0% 50%
-    }
-    }
-    
-    /* ValueBoxes */
-    div>.small-box {
-    border-radius: 20px;
-    border-style: solid;
-    height: 120px;
-    text-align: center;
-    }
-    
-    div>.small-box:hover {
-    border-radius: 40px;
-    border-color: black;
-    }
-    
-    div>.small-box p:hover {
-    font-weight: bold!important;
-    color: white!important;
-    text-transform: capitalize;
-    letter-spacing: 2px;
-    font-family: Arial, Helvetica, serif;
-    }
-    
-    div>.bg-aqua {
-    background-color: #3c8dbc!important;
-    }
-    
-    div>.bg-aqua h3,p {
-    color: black;
-    }
-    
-    .rpivotTable {
-    overflow-x: scroll; 
-    overflow-y: scroll;
-    text-decoration: none;
-    }
-    
-    .hex-svg {
-    padding: 1.5em;
-    }
-    
-    .hex-svg:hover {
-    animation: rotation 6s infinite ease;
-    }
-    
-    @keyframes rotation {
-    from {
-    transform: rotate(0deg):
-    }
-    to {
-    transform: rotate(359deg);
-    }
-    }
-    
-    </style>'
-  ),
-  
+  tags$link(rel = "stylesheet", 
+            type = "text/css", 
+            href = "main.css"),
   #### Sidebar Menu ####
   sidebarMenu(
     menuItem(text = tagList(
@@ -532,8 +347,11 @@ ui <- dashboardPage(skin = "black",
                                    Box_CatHist_Plot4)
                         ),
                         tabItem(tabName = "Table",
-                                fluidRow(box(title = "Full Data Table", width = "100%",collapsible = T,
-                                              collapsed = FALSE, Tab_CatFull_Table, id = "full_data_table"
+                                fluidRow(box(title = "Full Data Table (x/y scrollable)", 
+                                             width = "100%",
+                                             collapsible = T,
+                                             collapsed = FALSE, 
+                                             Tab_CatFull_Table, id = "full_data_table"
                                 )),
                         fluidRow(box(collapsible = T, 
                                      collapsed = T, 
