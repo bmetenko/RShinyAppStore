@@ -1,7 +1,7 @@
 library(shiny)
 library(shinydashboard)
 library(rpivotTable)
-
+  
 #### HEADER ####
 Main_Header <- dashboardHeader(
   title = "App Store Data (2017)",
@@ -38,7 +38,7 @@ Main_Sidebar <- dashboardSidebar(
   tags$link(rel = "stylesheet", 
             type = "text/css", 
             href = "main.css"),
-  #### Sidebar Menu ####
+  #### *Sidebar Menu ####
   sidebarMenu(
     menuItem(text = tagList(
       icon("dashboard", lib = "glyphicon"),
@@ -69,7 +69,7 @@ Main_Sidebar <- dashboardSidebar(
   )
 )
 
-#### Plain HTML ####
+#### *Plain HTML ####
 
 info_Title <- HTML(
   '<h2 
@@ -97,11 +97,7 @@ title_format <- function(str, ico) {
                                       str))
 }
 
-
-
-### Background CSS maybe?
-
-#### Text Sources ####
+#### *Text Sources ####
 
 Pie_Explain <-
   "This categorical distribution visualization can be used by stakeholders to identify specific app markets that are less inundated by apps than others, as well as help plan out how much competition there is in this space for future app development. Popularity of specific app genres can also be avaluated for consideration."
@@ -112,13 +108,13 @@ Hist_Explain <-
 Size_Explain <-
   "Data on the app size differences can be used as a proxy for development time involved in publishing and maintaining a specific type of app. Size data can be a rough proxy for how much money is necessary for these actions as well."
 
-#### Data Download ####
+#### *UI = Data Download ####
 Down_Cat_Pie <-
   downloadButton(label = "Download Plot", outputId = "Pie_Download")
 Down_Cat_Hist <-
   downloadButton(label = "Download Plot", outputId = "Hist_Download")
 
-#### Modifications #####
+#### *UI = Modifications #####
 Box_Clean <- box(
   width = "50%",
   height = "100px",
@@ -152,7 +148,7 @@ Box_Mobile <- box(
   title = "Mobile?"
 )
 
-#### Box with plots ####
+#### *UI = Box with plots ####
 BoxTop_Pie_Plot1 <- tagList(
   box(
     plotOutput("plot1"),
@@ -221,30 +217,7 @@ BoxTop_Size <- box(
 
 BoxTop_Pie_Legend <- uiOutput("Legend_Pie_Mobile", width = "auto")
 
-#### Information Tab ####
-Tab_Info <- tabItem(
-  tabName = "Summary",
-  HTML('<a href= "https://github.com/bmetenko/RShinyAppStore">
-       <img src = "https://travis-ci.org/bmetenko/RShinyAppStore.svg?branch=master">
-       </a>'),
-  h2("App Store Data from 2017"),
-  h3("Data source: "),
-
-  h6(
-    "https://www.kaggle.com/ramamet4/app-store-apple-data-set-10k-apps"
-  ),
-  h4(
-    "This data set contains more than 7000 Apple iOS mobile application details.
-    The data was extracted from the iTunes Search API at the Apple Inc website."
-  ),
-  h3("Author Note:"),
-  h4(
-    "This Shiny application was built as an effort to enhance my skills with R Shiny and R Shiny dashboards, as well as to understand the technology behind continuous integration / continuous deployment (CI/CD) using Travis CI and Github. The current version of the App Store on iOS or iPadOS does not allow for easy interpretation of the categories and properties of apps available and so this application was made in an effort to better portray this information."
-  )
-)
-
-
-#### Data Tables ####
+#### *UI = Data Tables ####
 pieTable <- box(
   id = "tablePie",
   tableOutput('pieTable'),
@@ -256,15 +229,9 @@ pieTable <- box(
 )
 
 
-#### Button Toggle ####
+#### *UI = Button Toggle ####
 
-#### Full Table Tab ####
-Tab_CatFull_Table <-
-  box(dataTableOutput("table2"),
-      width = "100%",
-      align = "center")
-
-#### KPI Container ####
+#### *UI = KPI Container ####
 
 KPI_Container <- tagList(
   valueBox(
@@ -284,6 +251,34 @@ KPI_Container <- tagList(
     width = 4,
     icon = icon("barcode", lib = "glyphicon"),
     "Labeled apps in dataset"
+  )
+)
+
+#### *Tab = Full Table Tab ####
+Tab_CatFull_Table <-
+  box(dataTableOutput("table2"),
+      width = "100%",
+      align = "center")
+
+#### *Tab = Information Tab ####
+Tab_Info <- tabItem(
+  tabName = "Summary",
+  HTML('<a href= "https://github.com/bmetenko/RShinyAppStore">
+       <img src = "https://travis-ci.org/bmetenko/RShinyAppStore.svg?branch=master">
+       </a>'),
+  h2("App Store Data from 2017"),
+  h3("Data source: "),
+  
+  h6(
+    "https://www.kaggle.com/ramamet4/app-store-apple-data-set-10k-apps"
+  ),
+  h4(
+    "This data set contains more than 7000 Apple iOS mobile application details.
+    The data was extracted from the iTunes Search API at the Apple Inc website."
+  ),
+  h3("Author Note:"),
+  h4(
+    "This Shiny application was built as an effort to enhance my skills with R Shiny and R Shiny dashboards, as well as to understand the technology behind continuous integration / continuous deployment (CI/CD) using Travis CI and Github. The current version of the App Store on iOS or iPadOS does not allow for easy interpretation of the categories and properties of apps available and so this application was made in an effort to better portray this information."
   )
 )
 
@@ -365,7 +360,7 @@ ui <- dashboardPage(skin = "black",
 
 
 
-#### Todo list ####
+#### ** Other = Todo list
 # TODO: Sizes_min_max vs category. vs. user rating.
 # TODO: Scatterplots and ggplotly output.
 # TODO: Clean up code. ShinyWidgets.

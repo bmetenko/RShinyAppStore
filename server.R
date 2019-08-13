@@ -62,14 +62,14 @@ server <- function(input, output, session) {
     }
     
   })
-  ### CheckBox = Omit NA ####
+  ### Select = Category NAs ####
   output$input1 <- renderUI({
     checkboxInput(inputId = "naOmit",
                   label = "Omit NAs?",
                   value = FALSE)
   })
   
-  ### Slider = Category Choice ####
+  ### Select = Category Amount ####
   output$topCat <- renderUI({
     sliderInput(
       inputId = "catNum",
@@ -81,7 +81,7 @@ server <- function(input, output, session) {
     )
   })
   
-  ### Select = Category ####
+  ### Select = Category Specified ####
   output$CatPick <- renderUI({
     d <- unique(df$prime_genre)
     
@@ -94,7 +94,7 @@ server <- function(input, output, session) {
     )
   })
   
-  ### Render = Pie_main ####
+  ### Render = Plot = Pie_main ####
   output$plot1 <- renderPlot({
     validate(need(length(dataParse()) != 0, "Loading..."))
     CatTally <- dataParse()
@@ -122,7 +122,7 @@ server <- function(input, output, session) {
     
   })
   
-  ### Render = Hist_main ####
+  ### Render = Plot = Hist_main ####
   output$plot2 <- renderPlot({
     validate(need(length(dataParse()) != 0, "Loading..."))
     dataParse()
@@ -143,7 +143,7 @@ server <- function(input, output, session) {
     
   })
   
-  ### Render = Hist - Ratings####
+  ### Render = Plot (c) = Hist - Ratings####
   output$plot4 <- renderCachedPlot({
     validate(need(input$catChoice != "", "Loading..."))
     
@@ -171,7 +171,7 @@ server <- function(input, output, session) {
     g1
   }, cacheKeyExpr = {input$catChoice})
   
-  ### Render = Pie - Rating ####
+  ### Render = Plot (c) = Pie - Rating ####
   output$plot3 <- renderCachedPlot({
     validate(need(input$catChoice != "", "Loading..."))
     j <- input$catChoice
@@ -196,7 +196,7 @@ server <- function(input, output, session) {
     catPie <<- g1
     g1
   }, cacheKeyExpr = {input$catChoice})
-  ### Render = Size ####
+  ### Render = Plot = Size ####
   output$plot5 <- renderPlot({
     ### add validate.
     ### add filtering correctly.
@@ -275,16 +275,21 @@ server <- function(input, output, session) {
     # bp_leg <- as_ggplot(bp_leg)
     # plot_grid(bp_leg)
   })
-  ### Table = Full ####
-  output$table1 <- renderTable({
-    g <- dataParse()
-    
-    g
-  })
+  
+  # Not used.
+  # Table = Full #
+  # output$table1 <- renderTable({
+  #   g <- dataParse()
+  #   
+  #   g
+  # })
   
   ### Table = Full DataTable Tab ####
   output$table2 <- renderDataTable({
+    # Selecting useful data columns.
     df2 <- df %>% na.omit() %>% select(-c(1, 2, 5, 8, 10, 15, 17))
+    
+    # Renaming colums for readability.
     colnames(df2) <-  c("App Name", 
                         "Size (MB)", 
                         "Price", 
@@ -295,6 +300,10 @@ server <- function(input, output, session) {
                         "Genre", 
                         "Supported Devices", 
                         "Language Count")
+    # Convering size data from bytes to megabytes.
+    df2$`Size (MB)` <- (df2$`Size (MB)`/1000000) %>% round(digits = 2)
+    
+    # Add as a reactive element to call for pivot chart?
     df2
   }, options = list(searching = FALSE, 
                     pageLength = 10, 
@@ -323,10 +332,13 @@ server <- function(input, output, session) {
     k
   })
   
-  ### Table = Pivot Table Category ####
+  ### Table = Pivot Table ####
   
   output$pivotC <- renderRpivotTable({
+    
+    # DRY for above. Fix.
     df2 <- df %>% na.omit() %>% select(-c(1, 2, 5, 8, 10, 15, 17))
+    
     colnames(df2) <-  c("App Name", 
                         "Size (MB)", 
                         "Price", 
@@ -337,13 +349,17 @@ server <- function(input, output, session) {
                         "Genre", 
                         "Supported Devices", 
                         "Language Count")
-    df2
+    df2$`Size (MB)` <- (df2$`Size (MB)`/1000000) %>% round(digits = 2)
     
-    rpivotTable(df2, height = "400px", width = "100%", rows = "Content", cols = "Genre")
+    rpivotTable(df2, 
+                height = "400px", 
+                width = "100%", 
+                rows = "Content", 
+                cols = "Genre")
   })
   
-  ### Data Download ####
-  
+  ### Util = Data Download ####
+  #### *Pie (Cat) Plot Download ####
   output$Pie_Download <-
     downloadHandler(
       filename = function() {
@@ -355,7 +371,8 @@ server <- function(input, output, session) {
       },
       contentType = "image/jpeg"
     )
-  
+
+  #### *Histogram (Cat) Plot Download #### 
   output$Hist_Download <-
     downloadHandler(
       filename = function() {
