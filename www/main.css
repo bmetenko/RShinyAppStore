@@ -182,12 +182,6 @@ p {
     color: black;
 }
 
-.rpivotTable {
-    overflow-x: scroll;
-    overflow-y: scroll;
-    text-decoration: none;
-}
-
 .shiny-datatable-output {
     overflow-x: scroll;
     overflow-y: scroll;
@@ -208,4 +202,20 @@ p {
     to {
         transform: rotate(359deg);
     }
+}
+
+/*
+    =======================================
+    Pivot table fixes
+    =======================================
+    */
+
+.rpivotTable {
+    overflow-x: scroll;
+    overflow-y: scroll;
+    text-decoration: none;
+}
+
+.pvtAxisContainer, .pvtVals {
+    text-align: left;
 }
