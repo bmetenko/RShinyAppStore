@@ -109,6 +109,7 @@ server <- function(input, output, session) {
                color = "white",
                stat = "identity") +
       blank_theme +
+      # theme(axis.text = element_blank())+
       scale_fill_discrete(name = "App Genre") +
       {
         if (input$mobileCheck)
@@ -118,8 +119,6 @@ server <- function(input, output, session) {
     
     
     bp + coord_polar("y", start = 0)
-    # assign(x = "bp", value = bp, envir = .GlobalEnv)
-    
   })
   
   ### Render = Plot = Hist_main ####

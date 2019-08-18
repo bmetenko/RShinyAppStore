@@ -27,7 +27,14 @@ Main_Header <- dashboardHeader(
       message = "Link to Github.",
       icon = icon("tags"),
       href = "https://github.com/bmetenko",
-      time = "2019-06-17 8:50pm"
+      time = "2019-06-17 at 8:50pm"
+    ),
+    messageItem(
+      icon = icon("ok",lib = "glyphicon"),
+      from = "PhillyR",
+      href = "https://github.com/bmetenko/RShinyAppStore/blob/master/Presentation/2019_08_15_RShinyPresentation.pdf",
+      time = "2019-08-15 at 6:00pm",
+      message = "Present Shiny App at meetup."
     )
   )
 )
@@ -298,7 +305,8 @@ ui <- dashboardPage(skin = "black",
                             column(4, Box_Mobile)
                           ),
                           tabBox(
-                            id = "TabBox1",
+                            id = "TabBox1", 
+                            # title = tagList(icon("check")),
                             width = "100%",
                             selected = "Pie Chart",
                             tabPanel(
