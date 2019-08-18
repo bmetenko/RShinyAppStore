@@ -35,9 +35,9 @@ Main_Header <- dashboardHeader(
 #### SIDEBAR ####
 Main_Sidebar <- dashboardSidebar(
   #### MAIN CSS ####
-  tags$link(rel = "stylesheet", 
-            type = "text/css", 
-            href = "main.css"),
+    tags$link(rel = "stylesheet", 
+              type = "text/css", 
+              href = "main.css"),
   #### *Sidebar Menu ####
   sidebarMenu(
     menuItem(text = tagList(

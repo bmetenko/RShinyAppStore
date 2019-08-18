@@ -182,9 +182,10 @@ p {
     color: black;
 }
 
-.shiny-datatable-output {
+.rpivotTable {
     overflow-x: scroll;
     overflow-y: scroll;
+    text-decoration: none;
 }
 
 .hex-svg {
@@ -204,6 +205,7 @@ p {
     }
 }
 
+
 /*
     =======================================
     Pivot table fixes
@@ -216,6 +218,28 @@ p {
     text-decoration: none;
 }
 
-.pvtAxisContainer, .pvtVals {
+.pvtAxisContainer,
+.pvtVals {
     text-align: left;
+}
+
+
+/* Scroll Handle on hover*/
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(212, 85, 0);
+}
+
+
+/* Scroll width */
+
+::-webkit-scrollbar {
+    width: 15px;
+}
+
+
+/* Scroll Handle */
+
+::-webkit-scrollbar-thumb {
+    background: #3c8dbc;
 }
