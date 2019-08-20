@@ -276,8 +276,10 @@ Tab_Info <- tabItem(
   h2("App Store Data from 2017"),
   h3("Data source: "),
   
-  h6(
-    "https://www.kaggle.com/ramamet4/app-store-apple-data-set-10k-apps"
+  h6(style = "text-shadow: 0 0 3px #FFF; 
+     font-weight:bolder; 
+     font-size: 18px;",
+    a(href = "https://www.kaggle.com/ramamet4/app-store-apple-data-set-10k-apps", "Mobile App Statistics")
   ),
   h4(
     "This data set contains more than 7000 Apple iOS mobile application details.
@@ -369,13 +371,7 @@ ui <- dashboardPage(skin = "black",
 
 
 #### ** Other = Todo list
-# TODO: Sizes_min_max vs category. vs. user rating.
 # TODO: Scatterplots and ggplotly output.
-# TODO: Clean up code. ShinyWidgets.
-# TODO: Start on Powerpoint or Xaringan.
+# TODO: ShinyWidgets.
 # TODO: Unit tests.
-# TODO: Plot Cache.
 # TODO: Write out naming conventions.
-# TODO: Comment everywhere. Check if comments here and on ubuntu/master are the same.
-# TODO: CSS comments multiline via '/* ========= text ========= */' and
-##      table of contents?
