@@ -50,7 +50,7 @@ label:hover {
 /* Main app header */
 
 .logo:hover {
-    color: white;
+/*    color: white; */
     font-weight: bold;
     background-color: #d5d5d5;
     letter-spacing: .05em;
