@@ -54,7 +54,7 @@ label:hover {
     font-weight: bold;
     background-color: #d5d5d5;
     letter-spacing: .05em;
-    text-shadow: 4px 4px 0px rgba(255, 255, 255, 0.1), 6px 6px 0px #000;
+/*  text-shadow: 4px 4px 0px rgba(255, 255, 255, 0.1), 6px 6px 0px #000; */
 }
 
 

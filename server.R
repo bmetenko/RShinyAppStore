@@ -142,7 +142,7 @@ server <- function(input, output, session) {
     
   })
   
-  ### Render = Plot (c) = Hist - Ratings####
+  ### Render = Plot (c) = Hist - Ratings ####
   output$plot4 <- renderCachedPlot({
     validate(need(input$catChoice != "", "Loading..."))
     
@@ -161,8 +161,12 @@ server <- function(input, output, session) {
       geom_label(aes(label = n), hjust = 1) +
       xlab("Content Age Rating") + ylab("") +
       theme_light() +
-      labs(fill = "") + theme(legend.position = "bottom",
-                              legend.title.align = 0.5) +
+      theme(axis.title = element_text(face = "bold"),
+            legend.text = element_text(face = "bold"),
+            legend.box.background = element_rect(color = "lightblue", size = 2),
+            legend.position = "bottom",
+            legend.title.align = 0.5) +
+      labs(fill = "") + 
       coord_flip() + scale_fill_brewer(palette = "Oranges")
     
     

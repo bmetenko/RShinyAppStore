@@ -202,7 +202,7 @@ Box_CatPie_Plot3 <-
 
 Box_CatHist_Plot4 <-
   box(
-    plotOutput("plot4"),
+    plotOutput("plot4", width = "90%"),
     (Down_Cat_Hist),
     title = "Bar Chart",
     align = "center",
