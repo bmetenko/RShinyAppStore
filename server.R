@@ -287,6 +287,7 @@ server <- function(input, output, session) {
   #   g
   # })
   
+  
   ### Table = Full DataTable Tab ####
   output$table2 <- renderDataTable({
     # Selecting useful data columns.
@@ -334,6 +335,18 @@ server <- function(input, output, session) {
     
     k
   })
+  
+  ### Render = Pivot Options ####
+  
+  output$PivotMenu <- renderUI({
+      selectInput(inputId = "PivCat", choices = (
+        unique(df$prime_genre)[!is.na(unique(df$prime_genre))]
+      ), 
+      width = "100%", 
+      label = "Pivot Categories", 
+      selected = "Games", 
+      multiple = T) }
+  )
   
   ### Table = Pivot Table ####
   

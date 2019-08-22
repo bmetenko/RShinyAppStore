@@ -143,6 +143,7 @@ Box_Category <- box(
   status = "warning",
   solidHeader = TRUE
 )
+
 Box_Mobile <- box(
   width = "50%",
   height = "100px",
@@ -155,6 +156,10 @@ Box_Mobile <- box(
   title = "Mobile?"
 )
 
+Box_Pivot_Cat <- box(
+  renderUI("PivotMenu"),
+  width = "100%"
+)
 #### *UI = Box with plots ####
 BoxTop_Pie_Plot1 <- tagList(
   box(
@@ -363,6 +368,7 @@ ui <- dashboardPage(skin = "black",
                                      width = "100%",
                                      title = "Pivot Table (x/y scrollable)",
                                      # Perhaps add warning here, or check if mobile and not render.
+                                     # Box_Pivot_Cat,
                           rpivotTableOutput("pivotC", width = "100%"))
                         ))
                       )
