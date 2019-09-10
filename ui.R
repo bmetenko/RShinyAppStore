@@ -275,10 +275,15 @@ Tab_CatFull_Table <-
 #### *Tab = Information Tab ####
 Tab_Info <- tabItem(
   tabName = "Summary",
+  
   HTML('<a href= "https://github.com/bmetenko/RShinyAppStore">
        <img src = "https://travis-ci.org/bmetenko/RShinyAppStore.svg?branch=master">
        </a>'),
   h2("App Store Data from 2017"),
+  div(class = "wave", width = "100%", height = "100px"),
+  br(height = "100px"),
+  br(height = "100px"),
+  br(height = "100px"),
   h3("Data source: "),
   
   h6(style = "text-shadow: 0 0 3px #FFF; 

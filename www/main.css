@@ -243,3 +243,26 @@ p {
 ::-webkit-scrollbar-thumb {
     background: #3c8dbc;
 }
+
+/* Wave Div*/ 
+
+
+.wave {
+  background: #0074D9;
+}
+.wave::after {
+  content: "";
+  position: relative;
+  left: -3rem;
+  color: black;
+  /* padding * -1 */
+  top: calc( 3rem - 4rem / 2);
+  margin: 0;
+  float: left;
+  display: block;
+  height: 4rem;
+  width: 100vw;
+  background: hsla(0, 0%, 100%, 0.5);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 70 500 60' preserveAspectRatio='none'%3E%3Crect x='0' y='0' width='500' height='500' style='stroke: none; fill: %237FDBFF;' /%3E%3Cpath d='M0,100 C150,200 350,0 500,100 L500,00 L0,0 Z' style='stroke: none; fill: %230074D9;'%3E%3C/path%3E%3C/svg%3E");
+  background-size: 100% 100%;
+}
