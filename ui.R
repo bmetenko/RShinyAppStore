@@ -45,6 +45,7 @@ Main_Sidebar <- dashboardSidebar(
     tags$link(rel = "stylesheet", 
               type = "text/css", 
               href = "main.css"),
+    tags$script(src="skeu.js"),
   #### *Sidebar Menu ####
   sidebarMenu(
     menuItem(text = tagList(
