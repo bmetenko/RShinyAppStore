@@ -363,14 +363,14 @@ ui <- dashboardPage(skin = "black",
                                    Box_CatHist_Plot4)
                         ),
                         tabItem(tabName = "Table",
-                                fluidRow(box(title = "Full Data Table (x/y scrollable)", 
-                                             width = "100%",
-                                             collapsible = T,
-                                             collapsed = FALSE, 
-                                             Tab_CatFull_Table, id = "full_data_table"
-                                )),
+                                # fluidRow(box(title = "Full Data Table (x/y scrollable)", 
+                                #              width = "100%",
+                                #              collapsible = T,
+                                #              collapsed = FALSE, 
+                                #              Tab_CatFull_Table, id = "full_data_table"
+                                # )),
                         fluidRow(box(collapsible = T, 
-                                     collapsed = T, 
+                                     collapsed = F, 
                                      width = "100%",
                                      title = "Pivot Table (x/y scrollable)",
                                      # Perhaps add warning here, or check if mobile and not render.
